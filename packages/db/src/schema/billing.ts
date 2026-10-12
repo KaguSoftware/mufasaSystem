@@ -109,6 +109,9 @@ export const manualPaymentRequests = pgTable(
     learnerIds: text().array().notNull().default([]),
     amountMinor: integer().notNull(),
     currency: text().$type<Currency>().notNull(),
+    /** Short code the payer puts in the transfer description / WhatsApp message, e.g. ACA-7KQ2-95. */
+    referenceCode: text().notNull().unique(),
+    couponId: uuid().references(() => coupons.id, { onDelete: "set null" }),
     /** Private bucket "receipts". Optional: some pay and just message on WhatsApp. */
     receiptPath: text(),
     senderName: text(),

@@ -41,6 +41,7 @@ export const NAV: Record<Role, NavItem[]> = {
     { key: "homework", href: "/student/homework", icon: ClipboardList },
     { key: "achievements", href: "/student/achievements", icon: Trophy },
     { key: "certificates", href: "/student/certificates", icon: Award },
+    { key: "billing", href: "/student/billing", icon: CreditCard },
   ],
   parent: [
     { key: "dashboard", href: "/parent", icon: LayoutDashboard },

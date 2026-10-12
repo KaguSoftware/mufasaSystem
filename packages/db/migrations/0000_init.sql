@@ -571,6 +571,8 @@ CREATE TABLE "manual_payment_requests" (
 	"learner_ids" text[] DEFAULT '{}' NOT NULL,
 	"amount_minor" integer NOT NULL,
 	"currency" text NOT NULL,
+	"reference_code" text NOT NULL,
+	"coupon_id" uuid,
 	"receipt_path" text,
 	"sender_name" text,
 	"note" text,
@@ -580,7 +582,8 @@ CREATE TABLE "manual_payment_requests" (
 	"reviewed_at" timestamp with time zone,
 	"subscription_id" uuid,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
-	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
+	"updated_at" timestamp with time zone DEFAULT now() NOT NULL,
+	CONSTRAINT "manual_payment_requests_referenceCode_unique" UNIQUE("reference_code")
 );
 --> statement-breakpoint
 CREATE TABLE "payments" (
@@ -887,6 +890,7 @@ ALTER TABLE "access_grants" ADD CONSTRAINT "access_grants_granted_by_user_id_fk"
 ALTER TABLE "access_grants" ADD CONSTRAINT "access_grants_manual_payment_request_id_manual_payment_requests_id_fk" FOREIGN KEY ("manual_payment_request_id") REFERENCES "public"."manual_payment_requests"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "manual_payment_requests" ADD CONSTRAINT "manual_payment_requests_payer_id_user_id_fk" FOREIGN KEY ("payer_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "manual_payment_requests" ADD CONSTRAINT "manual_payment_requests_plan_id_plans_id_fk" FOREIGN KEY ("plan_id") REFERENCES "public"."plans"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "manual_payment_requests" ADD CONSTRAINT "manual_payment_requests_coupon_id_coupons_id_fk" FOREIGN KEY ("coupon_id") REFERENCES "public"."coupons"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "manual_payment_requests" ADD CONSTRAINT "manual_payment_requests_reviewed_by_user_id_fk" FOREIGN KEY ("reviewed_by") REFERENCES "public"."user"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "manual_payment_requests" ADD CONSTRAINT "manual_payment_requests_subscription_id_subscriptions_id_fk" FOREIGN KEY ("subscription_id") REFERENCES "public"."subscriptions"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "payments" ADD CONSTRAINT "payments_payer_id_user_id_fk" FOREIGN KEY ("payer_id") REFERENCES "public"."user"("id") ON DELETE restrict ON UPDATE no action;--> statement-breakpoint

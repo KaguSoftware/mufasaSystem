@@ -61,6 +61,7 @@ export const lessonProgress = pgTable(
 
 export const XP_REASONS = [
   "lesson_completed",
+  "course_completed",
   "quiz_passed",
   "recitation_submitted",
   "recitation_approved",

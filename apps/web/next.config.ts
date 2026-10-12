@@ -10,6 +10,8 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@mufasa/config", "@mufasa/db", "@mufasa/video"],
+  // Node-only SDKs with dynamic requires; load them at runtime instead of bundling.
+  serverExternalPackages: ["iyzipay", "@react-pdf/renderer"],
   typedRoutes: false,
   // Next 16 writes an AGENTS.md on `next dev`; our guidance lives in /CLAUDE.md instead.
   agentRules: false,

@@ -1,5 +1,5 @@
 {
-  "id": "0f3c2ec6-8ff3-4e83-89fa-aee4e156f853",
+  "id": "2694a06d-169b-4f9b-a6fe-ecca01dd3864",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -5048,6 +5048,18 @@
           "primaryKey": false,
           "notNull": true
         },
+        "reference_code": {
+          "name": "reference_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coupon_id": {
+          "name": "coupon_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "receipt_path": {
           "name": "receipt_path",
           "type": "text",
@@ -5171,6 +5183,19 @@
           "onDelete": "restrict",
           "onUpdate": "no action"
         },
+        "manual_payment_requests_coupon_id_coupons_id_fk": {
+          "name": "manual_payment_requests_coupon_id_coupons_id_fk",
+          "tableFrom": "manual_payment_requests",
+          "tableTo": "coupons",
+          "columnsFrom": [
+            "coupon_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        },
         "manual_payment_requests_reviewed_by_user_id_fk": {
           "name": "manual_payment_requests_reviewed_by_user_id_fk",
           "tableFrom": "manual_payment_requests",
@@ -5199,7 +5224,15 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "manual_payment_requests_referenceCode_unique": {
+          "name": "manual_payment_requests_referenceCode_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "reference_code"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
