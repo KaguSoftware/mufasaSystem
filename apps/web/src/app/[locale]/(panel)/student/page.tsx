@@ -2,7 +2,9 @@ import { Flame, Star } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { isDbConfigured } from "@mufasa/db";
 import { t18n } from "@mufasa/config/locales";
+import { Announcements } from "@/components/announcements";
 import { BadgeIcon } from "@/components/gamification/badge-icon";
+import { UpcomingSessions } from "@/components/live/upcoming-sessions";
 import { Button } from "@/components/ui/button";
 import { Card, CardBody, CardHeader, Stat } from "@/components/ui/card";
 import { EmptyState, PageHeader, Progress } from "@/components/ui/misc";
@@ -29,6 +31,11 @@ export default async function StudentDashboard() {
         <Stat label={tg("currentStreak")} value={tg("days", { count: data.streak.current })} icon={<Flame className="size-4 text-warning" />} />
         <Stat label={tg("totalXp")} value={data.totalXp} icon={<Star className="size-4 text-warning" />} />
         <Stat label={t("coursesInProgress")} value={data.courses.filter((c) => !c.completedAt).length} />
+      </div>
+
+      <div className="mb-6 flex flex-col gap-6">
+        <Announcements role="student" />
+        <UpcomingSessions user={user} limit={3} hideEmpty />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">

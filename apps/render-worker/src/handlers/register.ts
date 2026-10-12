@@ -3,3 +3,6 @@
  * Each module appends ONE import line here for its own handler file.
  */
 export {};
+import "./recitation-ai";
+import "./video";
+import "./data-export";

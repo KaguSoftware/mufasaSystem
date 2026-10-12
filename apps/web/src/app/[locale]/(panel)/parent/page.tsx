@@ -2,6 +2,7 @@ import { BarChart3, UsersRound } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Announcements } from "@/components/announcements";
+import { UpcomingSessions } from "@/components/live/upcoming-sessions";
 import { pageUser } from "@/components/account/page-user";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -40,8 +41,6 @@ export default async function ParentOverviewPage() {
                     {c.username && <p className="truncate text-sm text-muted">@{c.username}</p>}
                   </div>
                 </div>
-                {/* SLOT: other modules add per-child stats here (streak, XP, next class, homework due). */}
-                <div data-slot="child-stats" />
                 <Button asChild variant="outline" size="sm" className="self-start">
                   <Link href={`/parent/progress?child=${c.id}`}>
                     <BarChart3 className="size-4" />
@@ -52,6 +51,7 @@ export default async function ParentOverviewPage() {
             ))}
           </div>
         )}
+        {user && children.length > 0 && <UpcomingSessions user={user} limit={5} hideEmpty />}
       </div>
     </>
   );

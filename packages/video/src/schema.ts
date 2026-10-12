@@ -43,6 +43,7 @@ export const drawAction = z.object({
   w: pct,
   h: pct,
   color: z.enum(BOARD_COLORS).default("ink"),
+  flip: z.boolean().default(false).describe("Mirror horizontally: arrows and lines run top-right to bottom-left, brackets become ]"),
 });
 
 /** Shows an Arabic letter with its positional forms: core of early lessons. */

@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "title": "حرف الباء",
+  "locale": "ar",
+  "mascot": "default",
+  "board": "whiteboard",
+  "scenes": [
+    {
+      "id": "s1",
+      "narration": "السلام عليكم يا أصدقائي! اليوم سنتعرف على حرف جديد جميل. هل أنتم مستعدون؟",
+      "durationSec": 6,
+      "mascot": { "pose": "wave", "position": "left" },
+      "clearBoardBefore": true,
+      "actions": [
+        { "type": "write", "id": "title", "at": 0.6, "durationSec": 1.6, "text": "حرف الباء", "x": 62, "y": 24, "size": "xxl", "color": "green", "font": "naskh", "dir": "rtl", "align": "center" }
+      ]
+    },
+    {
+      "id": "s2",
+      "narration": "هذا هو حرف الباء. له نقطة واحدة تحت الحرف. انظروا إلى النقطة.",
+      "durationSec": 8,
+      "mascot": { "pose": "point", "position": "left" },
+      "clearBoardBefore": true,
+      "actions": [
+        { "type": "letter", "id": "ba", "at": 0.4, "durationSec": 2.4, "letter": "ب", "showForms": false, "x": 62, "y": 42, "color": "blue" },
+        { "type": "draw", "at": 3.2, "durationSec": 0.9, "shape": "arrow", "x": 74, "y": 60, "w": 8, "h": 8, "color": "red", "flip": true },
+        { "type": "write", "id": "dot", "at": 4.2, "durationSec": 1.2, "text": "نقطة واحدة تحت", "x": 74, "y": 74, "size": "md", "color": "red", "font": "naskh", "dir": "rtl", "align": "center" },
+        { "type": "highlight", "at": 5.6, "targetId": "dot", "color": "orange", "style": "marker" }
+      ]
+    },
+    {
+      "id": "s3",
+      "narration": "الباء تتغير قليلا حسب مكانها في الكلمة. في أول الكلمة، وفي وسطها، وفي آخرها.",
+      "durationSec": 9,
+      "mascot": { "pose": "talk", "position": "right" },
+      "clearBoardBefore": true,
+      "actions": [
+        { "type": "letter", "id": "forms", "at": 0.5, "durationSec": 4, "letter": "ب", "showForms": true, "x": 40, "y": 42, "color": "ink" },
+        { "type": "draw", "at": 5, "durationSec": 1, "shape": "underline", "x": 18, "y": 68, "w": 44, "h": 3, "color": "green" },
+        { "type": "highlight", "at": 6.2, "targetId": "forms", "color": "orange", "style": "pulse" }
+      ]
+    },
+    {
+      "id": "s4",
+      "narration": "ممتاز! الآن اقرؤوا معي كلمة بَيْت. ب، بَ، بَيْت. أحسنتم!",
+      "durationSec": 9,
+      "mascot": { "pose": "celebrate", "position": "left" },
+      "clearBoardBefore": true,
+      "actions": [
+        { "type": "image", "id": "house", "at": 0.4, "durationSec": 0.8, "src": "house", "x": 52, "y": 22, "w": 16, "h": 28 },
+        { "type": "write", "id": "bayt", "at": 1.6, "durationSec": 1.6, "text": "بَيْت", "x": 60, "y": 62, "size": "xxl", "color": "blue", "font": "naskh", "dir": "rtl", "align": "center" },
+        { "type": "draw", "at": 4, "durationSec": 0.7, "shape": "check", "x": 74, "y": 52, "w": 9, "h": 14, "color": "green", "flip": false },
+        { "type": "highlight", "at": 5, "targetId": "bayt", "color": "orange", "style": "circle" },
+        { "type": "erase", "at": 8, "targetId": "house" }
+      ]
+    }
+  ]
+}

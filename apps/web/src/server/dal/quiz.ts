@@ -8,6 +8,7 @@ import { storage } from "../storage";
 import { awardXp } from "../services/gamification";
 import type { SessionUser } from "../session";
 import { completeLessonFor } from "./learn";
+import { assertHomeworkQuizAccess, linkQuizAttemptToHomework } from "./homework";
 
 type Actor = Pick<SessionUser, "id" | "role">;
 
@@ -115,6 +116,8 @@ export async function getQuizForPlayer(actor: Actor, quizId: string): Promise<Pl
   if (!quiz) throw notFound();
   if (quiz.kind === "placement") throw forbidden();
   if (quiz.lessonId) await assertLessonAccess(actor, quiz.lessonId);
+  // Homework quizzes have no lesson: only students with homework pointing at them may take them.
+  await assertHomeworkQuizAccess(actor, quiz.id);
   return loadPlayerQuiz(actor.id, quiz);
 }
 
@@ -134,6 +137,7 @@ export async function submitQuiz(actor: Actor, quizId: string, answers: AnswerMa
   if (!quiz) throw notFound();
   if (quiz.kind === "placement") throw forbidden(); // placement has its own flow
   if (quiz.lessonId) await assertLessonAccess(actor, quiz.lessonId);
+  await assertHomeworkQuizAccess(actor, quiz.id);
 
   const questions = await db.select().from(schema.quizQuestions).where(eq(schema.quizQuestions.quizId, quizId));
   const result = gradeQuiz(questions, answers, quiz.passScore);
@@ -154,6 +158,7 @@ export async function submitQuiz(actor: Actor, quizId: string, answers: AnswerMa
       submittedAt: new Date(),
     })
     .returning({ id: schema.quizAttempts.id });
+  if (quiz.kind === "homework") await linkQuizAttemptToHomework(actor.id, quizId, attempt!.id);
 
   let xpAwarded = false;
   if (result.passed) {

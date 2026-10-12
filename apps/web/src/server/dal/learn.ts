@@ -7,6 +7,7 @@ import { storage } from "../storage";
 import { awardXp } from "../services/gamification";
 import { onCourseCompleted } from "../services/course-completion";
 import { getCourseBySlug, type CourseDetail } from "./catalog";
+import { syncLessonHomework } from "./homework";
 
 type Actor = Pick<SessionUser, "id" | "role">;
 
@@ -360,6 +361,7 @@ async function applyProgress(
       .returning({ lessonId: schema.lessonProgress.lessonId });
     if (flipped.length) {
       justCompleted = true;
+      await syncLessonHomework(userId, lesson.id); // module B1: auto-satisfy lesson homework
       if (lesson.xpReward > 0) await awardXp(userId, "lesson_completed", lesson.xpReward, `lesson_completed:${lesson.id}`, { lessonId: lesson.id });
       courseCompleted = await checkCourseCompletion(userId, lesson.courseId);
     }

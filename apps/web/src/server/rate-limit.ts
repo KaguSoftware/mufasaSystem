@@ -20,6 +20,7 @@ export const RATE_LIMITS = {
   "family.create": { default: { max: 10, windowSec: 60 * 60 } },
   "data.request": { default: { max: 5, windowSec: 60 * 60 * 24 } },
   "live.token": { default: { max: 30, windowSec: 60 * 10 } },
+  "live.booking": { default: { max: 10, windowSec: 60 * 60 } },
 } satisfies Record<string, { default: RateLimitRule } & Partial<Record<Role, RateLimitRule>>>;
 
 export type RateLimitKey = keyof typeof RATE_LIMITS;

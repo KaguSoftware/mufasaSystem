@@ -3,6 +3,7 @@ import { seedBilling } from "./billing";
 import { seedCatalog, seedPrograms } from "./catalog";
 import { seedFlags } from "./flags";
 import { seedGamification } from "./gamification";
+import { seedQuran } from "./quran";
 import { seedSurahs } from "./surahs";
 import { seedUsers } from "./users";
 
@@ -15,4 +16,4 @@ export type SeedStep = (db: Db) => Promise<void>;
  *
  *   const steps: SeedStep[] = [seedFlags, seedUsers, seedSurahs, seedQuran, ...]
  */
-export const steps: SeedStep[] = [seedFlags, seedUsers, seedSurahs, seedPrograms, seedCatalog, seedGamification, seedBilling];
+export const steps: SeedStep[] = [seedFlags, seedUsers, seedSurahs, seedQuran, seedPrograms, seedCatalog, seedGamification, seedBilling];

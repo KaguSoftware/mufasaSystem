@@ -1,3 +1,7 @@
 {
-  "crons": [{ "path": "/api/cron/billing", "schedule": "0 4 * * *" }]
+  "crons": [
+    { "path": "/api/cron/billing", "schedule": "0 4 * * *" },
+    { "path": "/api/cron/live", "schedule": "*/15 * * * *" },
+    { "path": "/api/cron/homework", "schedule": "0 * * * *" }
+  ]
 }
