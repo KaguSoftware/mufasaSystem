@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@mufasa/config": "workspace:*",
+    "better-auth": "1.7.7",
     "drizzle-orm": "0.45.4",
     "postgres": "3.4.9"
   },
