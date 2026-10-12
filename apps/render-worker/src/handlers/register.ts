@@ -6,3 +6,4 @@ export {};
 import "./recitation-ai";
 import "./video";
 import "./data-export";
+import "./certificate";

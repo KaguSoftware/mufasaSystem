@@ -15,7 +15,8 @@
     "studio": "drizzle-kit studio",
     "typecheck": "tsc -p tsconfig.json",
     "lint": "echo skip",
-    "test": "echo skip"
+    "test": "echo skip",
+    "rls": "tsx src/rls.ts"
   },
   "dependencies": {
     "@mufasa/config": "workspace:*",

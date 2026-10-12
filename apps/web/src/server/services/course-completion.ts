@@ -1,7 +1,9 @@
 import "server-only";
 import { eq, getDb, schema } from "@mufasa/db";
 import { t18n } from "@mufasa/config/locales";
+import { isEnabled } from "../flags";
 import { notify } from "../notify";
+import { issueCertificate } from "./certificates";
 import { awardXp } from "./gamification";
 
 export const COURSE_COMPLETION_XP = 50;
@@ -24,5 +26,12 @@ export async function onCourseCompleted(userId: string, courseId: string): Promi
     await notify(userId, "courseCompleted", { course: t18n(course.title, user?.locale ?? "en") }, "/student/courses");
   }
 
-  // certificates module hooks in here: issue the certificate for (userId, courseId).
+  // Certificate for (userId, courseId). Idempotent, and never allowed to break course completion.
+  try {
+    if (await isEnabled("certificates", { id: userId, role: "student" })) {
+      await issueCertificate({ userId, courseId, title: course.title });
+    }
+  } catch (err) {
+    console.error("[course-completion] certificate issue failed", err);
+  }
 }

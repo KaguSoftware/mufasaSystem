@@ -7,6 +7,7 @@
  *
  * Deploy anywhere that runs a container (Railway, Fly.io, a VPS). See docs/ai-video-pipeline.md.
  */
+import { Sentry } from "./sentry";
 import { eq, schema, sql } from "@mufasa/db";
 import { baseContext, PermanentJobError, type WorkerContext } from "./context";
 import { handlers, type Job } from "./handlers";
@@ -62,6 +63,7 @@ async function fail(job: Job, err: unknown) {
     })
     .where(eq(schema.jobs.id, job.id));
   console.error(`[worker] job ${job.id} (${job.kind}) ${permanent ? "failed" : "will retry"}: ${message}`);
+  Sentry.captureException(err, { tags: { jobKind: job.kind, permanent: String(permanent) }, extra: { jobId: job.id, attempts: job.attempts } });
 }
 
 async function runOne(job: Job) {

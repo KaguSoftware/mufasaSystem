@@ -7,6 +7,7 @@
     "start": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts",
     "render:sample": "tsx src/render-sample.ts",
+    "certificate:sample": "tsx src/certificate-sample.ts",
     "typecheck": "tsc -p tsconfig.json",
     "lint": "echo skip",
     "test": "vitest run --passWithNoTests"

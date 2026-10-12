@@ -193,6 +193,7 @@ const en = {
       announcements: "Announcements",
       flags: "Feature flags",
       audit: "Audit log",
+      certificates: "Certificates",
       settings: "Settings",
     },
     notifications: "Notifications",
@@ -1593,16 +1594,505 @@ const en = {
     confirmDelete: "Delete this conversation and its messages? Saved scripts stay.",
   },
   certificates: {
-    _placeholder: "",
+    title: "Certificates",
+    subtitle: "Certificates earned for finished courses and special achievements.",
+    empty: "No certificates yet",
+    emptyHint: "Finish a course and your certificate will appear here.",
+    download: "Download PDF",
+    pending: "Preparing PDF",
+    pendingHint: "Your certificate PDF is being prepared. Please check again in a minute.",
+    downloadFailed: "Could not open the certificate. Please try again.",
+    revoked: "Revoked",
+    valid: "Valid",
+    issuedOn: "Issued on {date}",
+    code: "Code {code}",
+    adminTitle: "Certificates",
+    adminSubtitle: "Search issued certificates, issue one manually or revoke one.",
+    searchPlaceholder: "Name, email, username or code",
+    search: "Search",
+    issue: "Issue certificate",
+    issueTitle: "Issue a certificate",
+    issueDescription: "The PDF is generated in the background and the learner is notified.",
+    userRef: "Learner email or username",
+    userRefHint: "Child accounts use their username.",
+    titleEn: "Title (English)",
+    titleAr: "Title (Arabic)",
+    titleTr: "Title (Turkish)",
+    issueSubmit: "Issue",
+    issued: "Certificate issued.",
+    alreadyIssued: "This learner already has a certificate for that course.",
+    userNotFound: "No user found with that email or username.",
+    noCertificates: "No certificates found.",
+    colRecipient: "Recipient",
+    colCertificate: "Certificate",
+    colCode: "Code",
+    colIssued: "Issued",
+    colStatus: "Status",
+    revoke: "Revoke",
+    revokeTitle: "Revoke certificate",
+    revokeDescription: "Public verification will show this certificate as revoked.",
+    revokeReason: "Reason",
+    revokeSubmit: "Revoke",
+    revokedDone: "Certificate revoked.",
+    verifyTitle: "Certificate verification",
+    verifyLead: "Check that a certificate is genuine.",
+    verifyValid: "This certificate is valid",
+    verifyRevoked: "This certificate has been revoked",
+    verifyNotFound: "Certificate not found",
+    verifyNotFoundHint: "We could not find a certificate with this code. Check the code and try again.",
+    verifyRecipient: "Awarded to",
+    verifyCertificate: "Certificate",
+    verifyIssued: "Issued on",
+    verifyCode: "Code",
   },
   public: {
-    _placeholder: "",
+    "nav": {
+      "programs": "Programs",
+      "pricing": "Pricing",
+      "tutors": "Tutors",
+      "faq": "FAQ",
+      "contact": "Contact",
+      "signIn": "Sign in",
+      "getStarted": "Get started",
+      "menu": "Menu",
+      "skip": "Skip to main content",
+      "home": "Home",
+      "mainNav": "Main navigation"
+    },
+    "footer": {
+      "about": "A calm, caring place for children and teens to learn Arabic and Quran, with families following along.",
+      "explore": "Explore",
+      "support": "Support",
+      "legal": "Legal",
+      "whatsapp": "WhatsApp",
+      "email": "Email",
+      "privacy": "Privacy policy",
+      "terms": "Terms of use",
+      "kvkk": "KVKK notice",
+      "cookies": "Cookie policy"
+    },
+    "hero": {
+      "eyebrow": "Arabic & Quran for ages 5 to 17",
+      "title": "Arabic and Quran, learned with joy and with care",
+      "subtitle": "Short animated whiteboard lessons, live classes with caring tutors, and a memorization tracker that keeps parents in the picture. Children learn at their own pace, in a safe space.",
+      "cta": "Get started",
+      "secondary": "Browse programs",
+      "note": "Preview lessons are open to everyone, so you can see how we teach before you decide.",
+      "mascotAlt": "Our friendly owl mascot waving hello"
+    },
+    "how": {
+      "title": "How it works",
+      "subtitle": "Three simple steps from sign-up to the first lesson.",
+      "steps": [
+        {
+          "title": "Create a family account",
+          "body": "A parent signs up, adds each child, and gives consent for the features they are comfortable with."
+        },
+        {
+          "title": "Find the right level",
+          "body": "A short placement quiz suggests where to begin, so lessons feel neither too easy nor too hard."
+        },
+        {
+          "title": "Learn, practice, review",
+          "body": "Children watch lessons, join live classes and record their recitation. Tutors give feedback and parents follow progress."
+        }
+      ]
+    },
+    "features": {
+      "title": "Built around how children learn",
+      "subtitle": "Everything is designed to be clear, kind and easy for families to follow.",
+      "items": [
+        {
+          "title": "Whiteboard lessons",
+          "body": "Short, friendly animated lessons that explain one idea at a time and can be replayed whenever needed."
+        },
+        {
+          "title": "Live classes",
+          "body": "Small groups and one-to-one sessions with qualified tutors, with a schedule that fits family life."
+        },
+        {
+          "title": "Memorization tracker",
+          "body": "Plan what to memorize, record recitations, and review with tutor feedback so revision never gets lost."
+        },
+        {
+          "title": "Parent dashboard",
+          "body": "See progress, attendance and achievements for every child in one place."
+        },
+        {
+          "title": "Safe for kids",
+          "body": "Tutors never message children directly. Recordings and recitations stay private, and parents stay in control."
+        }
+      ]
+    },
+    "programsPreview": {
+      "title": "Programs",
+      "subtitle": "Pick a path for your child. Each program is made of clear, step-by-step courses.",
+      "viewAll": "See all programs",
+      "fallback": [
+        {
+          "title": "Arabic language",
+          "body": "Letters, reading, vocabulary and conversation, building confidence step by step."
+        },
+        {
+          "title": "Quran",
+          "body": "Correct recitation, tajweed basics and guided memorization with a tutor who listens."
+        }
+      ],
+      "fallbackNote": "Full course details are coming soon."
+    },
+    "pricingTeaser": {
+      "title": "Simple, transparent pricing",
+      "body": "Choose a plan that fits your family. Pay online by card when available, or by bank transfer and confirm on WhatsApp.",
+      "cta": "See pricing"
+    },
+    "faqTeaser": {
+      "title": "Questions parents often ask",
+      "cta": "Read all questions"
+    },
+    "finalCta": {
+      "title": "Ready to begin?",
+      "body": "Create a free account to look around, or message us if you would like to talk it through first.",
+      "signUp": "Create an account",
+      "whatsapp": "Chat on WhatsApp",
+      "whatsappMessage": "Hello, I would like to know more about the academy."
+    },
+    "programs": {
+      "metaTitle": "Programs",
+      "metaDescription": "Explore our Arabic and Quran programs for children and teens.",
+      "title": "Our programs",
+      "subtitle": "Every program is made of courses you can follow one after another.",
+      "emptyTitle": "Programs are coming soon",
+      "emptyBody": "We are preparing our first programs. Message us on WhatsApp and we will gladly tell you more.",
+      "courseCount": "{count, plural, one {# course} other {# courses}}",
+      "explore": "View program"
+    },
+    "programDetail": {
+      "coursesTitle": "Courses in this program",
+      "noCourses": "Courses for this program will be published soon.",
+      "back": "All programs"
+    },
+    "course": {
+      "ages": "Ages {min} to {max}",
+      "agesFrom": "Ages {min} and up",
+      "agesUpTo": "Up to age {max}",
+      "levels": {
+        "beginner": "Beginner",
+        "elementary": "Elementary",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      },
+      "free": "Free",
+      "preview": "Free preview",
+      "syllabus": "What is inside",
+      "unitCount": "{count, plural, one {# unit} other {# units}}",
+      "lessonCount": "{count, plural, one {# lesson} other {# lessons}}",
+      "noSyllabus": "The syllabus will be added soon.",
+      "lessonTypes": {
+        "video": "Video",
+        "reading": "Reading",
+        "quiz": "Quiz",
+        "recitation": "Recitation",
+        "live": "Live"
+      },
+      "ctaTitle": "Start this course",
+      "ctaFree": "This course is free. Create an account to begin.",
+      "ctaPaid": "Create an account to try the preview lessons, then choose a plan when you are ready.",
+      "signUp": "Create an account",
+      "viewPricing": "See pricing",
+      "whatsapp": "Ask us about this course",
+      "whatsappMessage": "Hello, I would like to know more about the course: {title}.",
+      "program": "Program",
+      "level": "Level",
+      "audience": "Suitable for"
+    },
+    "pricing": {
+      "metaTitle": "Pricing",
+      "metaDescription": "Simple plans for families, with online or bank transfer payment.",
+      "title": "Pricing",
+      "subtitle": "Choose the plan that suits your family. You can pay by bank transfer or, when available, by card.",
+      "emptyTitle": "Plans coming soon",
+      "emptyBody": "We are finalizing our plans. Message us on WhatsApp and we will help you find the right fit.",
+      "whatsappCta": "Ask on WhatsApp",
+      "whatsappMessage": "Hello, I would like to know about your plans and prices.",
+      "intervals": {
+        "month": "per month",
+        "quarter": "every 3 months",
+        "year": "per year",
+        "one_time": "one time"
+      },
+      "seats": "{count, plural, one {# child seat} other {# child seats}}",
+      "liveClasses": "{count, plural, one {# live class per month} other {# live classes per month}}",
+      "allPrograms": "Access to all programs",
+      "choose": "Get started",
+      "paymentTitle": "How payment works",
+      "paymentSubtitle": "Pick whichever is easier for you.",
+      "bankTitle": "Bank transfer (IBAN)",
+      "bankBody": "After you sign in, you will see our bank details and a personal payment reference. Make the transfer, then confirm on WhatsApp or upload your receipt, and we activate access once we have checked it.",
+      "cardTitle": "Card payment",
+      "cardBody": "Secure online card payment through our payment partner iyzico, when it is enabled for your plan.",
+      "questions": "Questions about plans?"
+    },
+    "tutors": {
+      "metaTitle": "Our tutors",
+      "metaDescription": "Meet the tutors who teach Arabic and Quran at the academy.",
+      "title": "Meet our tutors",
+      "subtitle": "Qualified, patient teachers who love working with children and teens.",
+      "emptyTitle": "Tutor profiles are coming soon",
+      "emptyBody": "We will introduce our teaching team here shortly.",
+      "languages": "Languages",
+      "specialties": "Specialties",
+      "safety": "For child safety, tutors never contact children directly. All messages go through parents or academy staff."
+    },
+    "faq": {
+      "metaTitle": "Frequently asked questions",
+      "metaDescription": "Answers about ages, lessons, safety, payment, cancellation and more.",
+      "title": "Frequently asked questions",
+      "subtitle": "Straight answers to the things families ask us most.",
+      "items": [
+        {
+          "q": "What ages is the academy for?",
+          "a": "We teach children and teens from about 5 to 17. Each course shows its suggested age range, and a short placement quiz helps choose the right level."
+        },
+        {
+          "q": "How do the lessons work?",
+          "a": "Most courses combine short animated whiteboard lessons with quizzes, recitation practice and optional live classes. Children can learn at their own pace and replay anything."
+        },
+        {
+          "q": "Is it safe for my child?",
+          "a": "Safety comes first. Tutors never message children directly, children are shown by first name only, and recordings and recitations are private. Features such as live video and AI feedback need your consent first."
+        },
+        {
+          "q": "How do I pay by bank transfer?",
+          "a": "Choose a plan, and you will see our IBAN and a personal payment reference. After you transfer, confirm on WhatsApp or upload the receipt, and we activate access once we have checked it."
+        },
+        {
+          "q": "Can I cancel?",
+          "a": "Yes. You can stop renewing at any time and keep access until the end of the period you already paid for. Please see our terms or message us for details."
+        },
+        {
+          "q": "What devices do we need?",
+          "a": "A phone, tablet or computer with an internet connection and a modern browser. A microphone is needed to record recitations, and a camera only for live video classes."
+        },
+        {
+          "q": "How big are the live classes?",
+          "a": "Group classes are kept small so every child gets attention, and one-to-one sessions are available too. The class size is shown on each session."
+        },
+        {
+          "q": "How is memorization tracked?",
+          "a": "The memorization tracker lets a child and tutor plan new portions and revision, record recitations and leave feedback. Parents can see the progress in their dashboard."
+        },
+        {
+          "q": "Which languages are supported?",
+          "a": "The website and app are available in English, Arabic and Turkish. Each course shows the language it is taught in."
+        },
+        {
+          "q": "How can I contact you?",
+          "a": "The quickest way is WhatsApp. You can also email us from the contact page."
+        }
+      ],
+      "stillTitle": "Still have a question?",
+      "stillBody": "We are happy to help, and there is no pressure to sign up.",
+      "contactCta": "Contact us"
+    },
+    "contact": {
+      "metaTitle": "Contact",
+      "metaDescription": "Talk to us on WhatsApp or by email.",
+      "title": "Talk to us",
+      "subtitle": "Ask about programs, levels, prices or anything else. We are glad to help.",
+      "whatsappTitle": "WhatsApp",
+      "whatsappBody": "The quickest way to reach us. Tap the button and your message is ready to send.",
+      "whatsappCta": "Message us on WhatsApp",
+      "whatsappMessage": "Hello, I have a question about the academy.",
+      "emailTitle": "Email",
+      "emailBody": "Prefer email? Write to us and we will reply as soon as we can.",
+      "emailCta": "Send an email"
+    },
+    "notFound": {
+      "title": "We could not find that page",
+      "body": "The page may have moved or never existed. Let us take you back to the start.",
+      "home": "Back to home"
+    }
   },
   legal: {
-    _placeholder: "",
+    "templateBanner": "This is template text for review by a qualified lawyer before launch. It is not legal advice.",
+    "lastUpdated": "Last updated: to be set before launch",
+    "contactNote": "Questions about this page? Contact us using the details on our contact page.",
+    "privacy": {
+      "metaTitle": "Privacy policy",
+      "title": "Privacy policy",
+      "intro": "We teach children, so we hold their data with extra care. This policy explains what we collect, why, and the choices families have.",
+      "sections": [
+        {
+          "title": "Who we are",
+          "body": "The academy operates this website and app. The contact details are on our contact page. For families in Turkey, the KVKK notice gives the data controller details."
+        },
+        {
+          "title": "What we collect",
+          "body": "Parent or adult account details (name, email, language, time zone). For children: a first name or nickname, birth year only, learning progress, quiz results, memorization records, and messages between the family and staff. We also keep payment records such as plan, amount and transfer reference."
+        },
+        {
+          "title": "Children and parental consent",
+          "body": "A child account is created and managed by a parent or guardian. We ask for explicit parental consent before enabling live video, recordings or AI feedback for a child. A parent can withdraw consent at any time in their account."
+        },
+        {
+          "title": "How we use data",
+          "body": "To deliver lessons and live classes, track progress, let tutors give feedback, take payments, send service messages and keep the service safe. We do not sell personal data and we do not show advertising."
+        },
+        {
+          "title": "Recordings and recitations",
+          "body": "Recitation audio and any class recordings are stored in private storage and are only available to the family and authorized staff through short-lived links. Live classes are recorded only where consent has been given."
+        },
+        {
+          "title": "AI processing of recitations",
+          "body": "With parental consent, a recitation may be sent to Google Gemini to produce automatic feedback. This feedback is advisory only; the tutor's assessment is the one that counts. Without consent, recitations are not sent for AI processing."
+        },
+        {
+          "title": "Service providers",
+          "body": "We use trusted providers to run the service: Supabase and Vercel for hosting and storage, iyzico for card payments, LiveKit for live video, Google for AI feedback and an email provider for notifications. They process data on our behalf and only for these purposes. Some of them may process data outside your country."
+        },
+        {
+          "title": "Retention",
+          "body": "We keep account and learning data while the account is active. When an account is deleted we remove personal data, except records we must keep by law, such as payment records. Backups are cleared on a regular cycle."
+        },
+        {
+          "title": "Your rights: export and deletion",
+          "body": "You can request a copy of your family's data or ask us to delete it from your account settings, or by contacting us. We will respond within a reasonable time and in line with applicable law."
+        },
+        {
+          "title": "Security and changes",
+          "body": "We use encryption in transit, private storage for sensitive files and access controls for staff. No system is perfectly secure, so please keep your password safe. We may update this policy and will show the date of the latest version."
+        }
+      ]
+    },
+    "terms": {
+      "metaTitle": "Terms of use",
+      "title": "Terms of use",
+      "intro": "These terms describe how the academy and its website may be used. Please read them with your family.",
+      "sections": [
+        {
+          "title": "Accepting the terms",
+          "body": "By creating an account or using the service you agree to these terms. If you are under 18, a parent or guardian must agree on your behalf."
+        },
+        {
+          "title": "Accounts",
+          "body": "Parents create and manage family accounts and are responsible for the activity of their children. Keep login details private and tell us if you think an account has been misused."
+        },
+        {
+          "title": "The service",
+          "body": "We provide lessons, live classes, quizzes and tracking tools. We work hard to teach well, but learning outcomes depend on the learner and we cannot guarantee specific results. Schedules and content may change."
+        },
+        {
+          "title": "Plans and payment",
+          "body": "Prices are shown on the pricing page. Payment can be made by card, where enabled, or by bank transfer with confirmation. Access starts once payment is confirmed."
+        },
+        {
+          "title": "Cancellation and refunds",
+          "body": "You may stop renewing at any time and keep access until the end of the paid period. Refund requests are handled case by case in line with applicable consumer law. This section must be completed with the final refund policy."
+        },
+        {
+          "title": "Acceptable use",
+          "body": "Be respectful to teachers and other learners. Do not share your account, copy or resell course content, record or redistribute classes without permission, or try to disrupt the service."
+        },
+        {
+          "title": "Content and ownership",
+          "body": "Lessons, materials and branding belong to the academy or its licensors. You get a personal, non-transferable right to use them for learning."
+        },
+        {
+          "title": "Liability",
+          "body": "To the extent allowed by law, the academy is not liable for indirect losses or for interruptions outside our reasonable control. Nothing here limits rights you have under mandatory law."
+        },
+        {
+          "title": "Changes and governing law",
+          "body": "We may update these terms and will tell you about important changes. The governing law and the competent courts are to be set by the academy's lawyer before launch."
+        }
+      ]
+    },
+    "kvkk": {
+      "metaTitle": "KVKK personal data notice",
+      "title": "KVKK personal data notice",
+      "intro": "This notice is provided under the Turkish Personal Data Protection Law No. 6698 (KVKK) for people whose data we process in Turkey.",
+      "sections": [
+        {
+          "title": "Data controller",
+          "body": "The data controller is the academy operator. Legal name, address and registry details are to be completed before launch. Contact details are on our contact page."
+        },
+        {
+          "title": "Personal data we process",
+          "body": "Identity and contact data (name, email), account and learning data, parent and child relationship data, payment records, communication records, and, where consent exists, voice recordings of recitations and class recordings."
+        },
+        {
+          "title": "Purposes and legal grounds",
+          "body": "We process data to provide education services, manage accounts and payments, communicate with families, ensure safety and meet legal duties. The legal grounds include performance of a contract, legal obligation, legitimate interest and, where required, explicit consent."
+        },
+        {
+          "title": "Children's data",
+          "body": "Data about children is processed with the knowledge and consent of the parent or guardian. We limit it to what is needed: first name, birth year and learning records."
+        },
+        {
+          "title": "Transfers",
+          "body": "Our hosting, storage, payment, live video and AI providers may be located abroad. Transfers abroad are made in line with Article 9 of the KVKK, including explicit consent or the safeguards the law provides."
+        },
+        {
+          "title": "How data is collected",
+          "body": "Data is collected electronically through our website and app, when you register, use the lessons, pay or contact us."
+        },
+        {
+          "title": "Your rights",
+          "body": "Under Article 11 of the KVKK you may ask whether your data is processed, request information, learn the purpose, ask for correction or deletion, object to results against you, and claim damages for unlawful processing."
+        },
+        {
+          "title": "How to apply",
+          "body": "Send your request using the contact details on our contact page. We reply within thirty days at the latest. The formal application procedure is to be completed by the academy's lawyer."
+        }
+      ]
+    },
+    "cookies": {
+      "metaTitle": "Cookie policy",
+      "title": "Cookie policy",
+      "intro": "This page explains the small files and browser storage that the site uses.",
+      "sections": [
+        {
+          "title": "What we use",
+          "body": "Cookies and local storage that keep you signed in, remember your language and your light or dark theme, and protect the site against abuse. These are essential for the site to work."
+        },
+        {
+          "title": "What we do not use",
+          "body": "We do not use advertising cookies or sell data to advertisers. If we add analytics later, we will describe it here and ask for consent where the law requires."
+        },
+        {
+          "title": "Third parties",
+          "body": "Payment pages and live video may set their own technical cookies while you use them. These belong to the providers and are covered by their policies."
+        },
+        {
+          "title": "Managing cookies",
+          "body": "You can delete or block cookies in your browser settings. Blocking essential cookies may stop sign-in and some features from working."
+        },
+        {
+          "title": "Changes",
+          "body": "We may update this policy as the site changes and will show the date of the latest version."
+        }
+      ]
+    }
   },
   email: {
-    _placeholder: "",
+    digestSubject: "Weekly progress summary",
+    digestPreheader: "What your children achieved over the last 7 days.",
+    digestGreeting: "Hello {name},",
+    digestIntro: "Here is what your children did over the last 7 days.",
+    lessonsCompleted: "Lessons completed",
+    xpGained: "XP earned",
+    streak: "Current streak",
+    streakDays: "{count, plural, one {# day} other {# days}}",
+    badgesEarned: "Badges earned",
+    ayahsMemorized: "Verses memorized",
+    recitationsSubmitted: "Recitations submitted",
+    recitationsReviewed: "Recitations reviewed",
+    homework: "Homework submitted",
+    homeworkValue: "{submitted} of {due}",
+    classesAttended: "Classes attended",
+    classesMissed: "Classes missed",
+    openDashboard: "Open the parent dashboard",
+    footer: "You receive this weekly summary because you are a parent on {academy}.",
   },
 } as const;
 

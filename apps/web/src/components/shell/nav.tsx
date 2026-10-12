@@ -76,6 +76,7 @@ export const NAV: Record<Role, NavItem[]> = {
     { key: "announcements", href: "/admin/announcements", icon: Megaphone },
     { key: "flags", href: "/admin/flags", icon: Flag },
     { key: "audit", href: "/admin/audit", icon: ScrollText },
+    { key: "certificates", href: "/admin/certificates", icon: Award },
     { key: "settings", href: "/admin/settings", icon: Settings },
   ],
 };

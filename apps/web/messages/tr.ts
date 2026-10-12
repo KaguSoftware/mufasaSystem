@@ -190,6 +190,7 @@ const tr: Messages = {
       announcements: "Duyurular",
       flags: "Özellik bayrakları",
       audit: "Denetim kaydı",
+      certificates: "Sertifikalar",
       settings: "Ayarlar",
     },
     notifications: "Bildirimler",
@@ -1590,16 +1591,505 @@ const tr: Messages = {
     confirmDelete: "Bu sohbet ve mesajları silinsin mi? Kaydedilmiş metinler kalır.",
   },
   certificates: {
-    _placeholder: "",
+    title: "Sertifikalar",
+    subtitle: "Tamamlanan kurslar ve özel başarılar için kazanılan sertifikalar.",
+    empty: "Henüz sertifika yok",
+    emptyHint: "Bir kursu bitirdiğinde sertifikan burada görünür.",
+    download: "PDF indir",
+    pending: "PDF hazırlanıyor",
+    pendingHint: "Sertifika PDF'in hazırlanıyor. Lütfen bir dakika sonra tekrar kontrol et.",
+    downloadFailed: "Sertifika açılamadı. Lütfen tekrar dene.",
+    revoked: "İptal edildi",
+    valid: "Geçerli",
+    issuedOn: "{date} tarihinde düzenlendi",
+    code: "Kod {code}",
+    adminTitle: "Sertifikalar",
+    adminSubtitle: "Düzenlenen sertifikaları ara, elle sertifika düzenle veya iptal et.",
+    searchPlaceholder: "Ad, e-posta, kullanıcı adı veya kod",
+    search: "Ara",
+    issue: "Sertifika düzenle",
+    issueTitle: "Sertifika düzenle",
+    issueDescription: "PDF arka planda oluşturulur ve öğrenciye bildirim gider.",
+    userRef: "Öğrencinin e-postası veya kullanıcı adı",
+    userRefHint: "Çocuk hesapları kullanıcı adını kullanır.",
+    titleEn: "Başlık (İngilizce)",
+    titleAr: "Başlık (Arapça)",
+    titleTr: "Başlık (Türkçe)",
+    issueSubmit: "Düzenle",
+    issued: "Sertifika düzenlendi.",
+    alreadyIssued: "Bu öğrencinin bu kurs için zaten bir sertifikası var.",
+    userNotFound: "Bu e-posta veya kullanıcı adıyla kullanıcı bulunamadı.",
+    noCertificates: "Sertifika bulunamadı.",
+    colRecipient: "Alıcı",
+    colCertificate: "Sertifika",
+    colCode: "Kod",
+    colIssued: "Düzenlenme",
+    colStatus: "Durum",
+    revoke: "İptal et",
+    revokeTitle: "Sertifikayı iptal et",
+    revokeDescription: "Herkese açık doğrulamada bu sertifika iptal edilmiş görünür.",
+    revokeReason: "Neden",
+    revokeSubmit: "İptal et",
+    revokedDone: "Sertifika iptal edildi.",
+    verifyTitle: "Sertifika doğrulama",
+    verifyLead: "Bir sertifikanın gerçek olup olmadığını kontrol edin.",
+    verifyValid: "Bu sertifika geçerli",
+    verifyRevoked: "Bu sertifika iptal edilmiş",
+    verifyNotFound: "Sertifika bulunamadı",
+    verifyNotFoundHint: "Bu kodla bir sertifika bulamadık. Kodu kontrol edip tekrar deneyin.",
+    verifyRecipient: "Verilen kişi",
+    verifyCertificate: "Sertifika",
+    verifyIssued: "Düzenlenme tarihi",
+    verifyCode: "Kod",
   },
   public: {
-    _placeholder: "",
+    "nav": {
+      "programs": "Programlar",
+      "pricing": "Fiyatlar",
+      "tutors": "Eğitmenler",
+      "faq": "SSS",
+      "contact": "İletişim",
+      "signIn": "Giriş yap",
+      "getStarted": "Başla",
+      "menu": "Menü",
+      "skip": "Ana içeriğe geç",
+      "home": "Ana sayfa",
+      "mainNav": "Ana gezinme"
+    },
+    "footer": {
+      "about": "Çocukların ve gençlerin Arapça ve Kur'an öğrendiği, ailelerin de her adımı takip ettiği sıcak ve huzurlu bir yer.",
+      "explore": "Keşfet",
+      "support": "Destek",
+      "legal": "Yasal",
+      "whatsapp": "WhatsApp",
+      "email": "E-posta",
+      "privacy": "Gizlilik politikası",
+      "terms": "Kullanım koşulları",
+      "kvkk": "KVKK aydınlatma metni",
+      "cookies": "Çerez politikası"
+    },
+    "hero": {
+      "eyebrow": "5 ile 17 yaş için Arapça ve Kur'an",
+      "title": "Arapça ve Kur'an, sevgiyle ve özenle öğrenilir",
+      "subtitle": "Kısa animasyonlu tahta dersleri, ilgili eğitmenlerle canlı dersler ve ebeveynleri sürecin içinde tutan bir ezber takip aracı. Çocuklar kendi hızlarında, güvenli bir ortamda öğrenir.",
+      "cta": "Başla",
+      "secondary": "Programlara göz at",
+      "note": "Önizleme dersleri herkese açık, böylece karar vermeden önce öğretim tarzımızı görebilirsiniz.",
+      "mascotAlt": "Merhaba diyen sevimli baykuş maskotumuz"
+    },
+    "how": {
+      "title": "Nasıl çalışır?",
+      "subtitle": "Kayıttan ilk derse üç basit adım.",
+      "steps": [
+        {
+          "title": "Aile hesabı oluşturun",
+          "body": "Ebeveyn kayıt olur, çocuklarını ekler ve rahat hissettiği özellikler için onay verir."
+        },
+        {
+          "title": "Doğru seviyeyi bulun",
+          "body": "Kısa bir seviye belirleme testi nereden başlanacağını önerir; dersler ne çok kolay ne de çok zor olur."
+        },
+        {
+          "title": "Öğrenin, pekiştirin, tekrar edin",
+          "body": "Çocuklar dersleri izler, canlı derslere katılır ve okumalarını kaydeder. Eğitmen geri bildirim verir, ebeveynler ilerlemeyi izler."
+        }
+      ]
+    },
+    "features": {
+      "title": "Çocukların öğrenme biçimine göre tasarlandı",
+      "subtitle": "Her şey net, nazik ve ailelerin takip etmesi kolay olacak şekilde hazırlandı.",
+      "items": [
+        {
+          "title": "Tahta dersleri",
+          "body": "Her seferinde tek bir fikri anlatan, istenildiğinde tekrar izlenebilen kısa ve sevimli animasyonlu dersler."
+        },
+        {
+          "title": "Canlı dersler",
+          "body": "Nitelikli eğitmenlerle küçük gruplar ve birebir oturumlar, aile hayatına uyan programlarla."
+        },
+        {
+          "title": "Ezber takip aracı",
+          "body": "Ne ezberleneceğini planlayın, okumaları kaydedin ve eğitmen geri bildirimiyle tekrar edin; hiçbir tekrar kaybolmasın."
+        },
+        {
+          "title": "Ebeveyn paneli",
+          "body": "Her çocuğun ilerlemesini, devamını ve başarılarını tek yerden görün."
+        },
+        {
+          "title": "Çocuklar için güvenli",
+          "body": "Eğitmenler çocuklara doğrudan mesaj yazmaz. Kayıtlar ve okumalar özel kalır, kontrol ebeveynlerdedir."
+        }
+      ]
+    },
+    "programsPreview": {
+      "title": "Programlar",
+      "subtitle": "Çocuğunuz için bir yol seçin. Her program, adım adım ilerleyen net kurslardan oluşur.",
+      "viewAll": "Tüm programları gör",
+      "fallback": [
+        {
+          "title": "Arapça dili",
+          "body": "Harfler, okuma, kelime bilgisi ve konuşma; adım adım artan bir özgüvenle."
+        },
+        {
+          "title": "Kur'an",
+          "body": "Doğru okuma, tecvid temelleri ve dinleyen bir eğitmenle rehberli ezber."
+        }
+      ],
+      "fallbackNote": "Kursların ayrıntıları yakında."
+    },
+    "pricingTeaser": {
+      "title": "Basit ve şeffaf fiyatlandırma",
+      "body": "Ailenize uygun planı seçin. Mümkün olduğunda kartla, ya da havale yapıp WhatsApp'tan onaylayarak ödeyebilirsiniz.",
+      "cta": "Fiyatları gör"
+    },
+    "faqTeaser": {
+      "title": "Ebeveynlerin sık sorduğu sorular",
+      "cta": "Tüm soruları oku"
+    },
+    "finalCta": {
+      "title": "Başlamaya hazır mısınız?",
+      "body": "Etrafa bakmak için ücretsiz bir hesap açın ya da önce konuşmak isterseniz bize yazın.",
+      "signUp": "Hesap oluştur",
+      "whatsapp": "WhatsApp'ta yazın",
+      "whatsappMessage": "Merhaba, akademi hakkında daha fazla bilgi almak istiyorum."
+    },
+    "programs": {
+      "metaTitle": "Programlar",
+      "metaDescription": "Çocuklar ve gençler için Arapça ve Kur'an programlarımızı keşfedin.",
+      "title": "Programlarımız",
+      "subtitle": "Her program, birbiri ardına izleyebileceğiniz kurslardan oluşur.",
+      "emptyTitle": "Programlar yakında",
+      "emptyBody": "İlk programlarımızı hazırlıyoruz. WhatsApp'tan yazın, memnuniyetle bilgi verelim.",
+      "courseCount": "{count, plural, one {# kurs} other {# kurs}}",
+      "explore": "Programı gör"
+    },
+    "programDetail": {
+      "coursesTitle": "Bu programdaki kurslar",
+      "noCourses": "Bu programın kursları yakında yayınlanacak.",
+      "back": "Tüm programlar"
+    },
+    "course": {
+      "ages": "{min} ile {max} yaş arası",
+      "agesFrom": "{min} yaş ve üzeri",
+      "agesUpTo": "{max} yaşa kadar",
+      "levels": {
+        "beginner": "Başlangıç",
+        "elementary": "Temel",
+        "intermediate": "Orta",
+        "advanced": "İleri"
+      },
+      "free": "Ücretsiz",
+      "preview": "Ücretsiz önizleme",
+      "syllabus": "Kursun içeriği",
+      "unitCount": "{count, plural, one {# ünite} other {# ünite}}",
+      "lessonCount": "{count, plural, one {# ders} other {# ders}}",
+      "noSyllabus": "Müfredat yakında eklenecek.",
+      "lessonTypes": {
+        "video": "Video",
+        "reading": "Okuma",
+        "quiz": "Test",
+        "recitation": "Okuma kaydı",
+        "live": "Canlı"
+      },
+      "ctaTitle": "Bu kursa başlayın",
+      "ctaFree": "Bu kurs ücretsiz. Başlamak için bir hesap oluşturun.",
+      "ctaPaid": "Önizleme derslerini denemek için hesap oluşturun, hazır olduğunuzda bir plan seçin.",
+      "signUp": "Hesap oluştur",
+      "viewPricing": "Fiyatları gör",
+      "whatsapp": "Bu kursu bize sorun",
+      "whatsappMessage": "Merhaba, şu kurs hakkında bilgi almak istiyorum: {title}.",
+      "program": "Program",
+      "level": "Seviye",
+      "audience": "Uygun yaş"
+    },
+    "pricing": {
+      "metaTitle": "Fiyatlar",
+      "metaDescription": "Ailelere uygun basit planlar; online ya da havale ile ödeme.",
+      "title": "Fiyatlar",
+      "subtitle": "Ailenize uygun planı seçin. Havale ile ya da, mümkün olduğunda, kartla ödeyebilirsiniz.",
+      "emptyTitle": "Planlar yakında",
+      "emptyBody": "Planlarımızı son haline getiriyoruz. WhatsApp'tan yazın, size uygun olanı birlikte bulalım.",
+      "whatsappCta": "WhatsApp'tan sorun",
+      "whatsappMessage": "Merhaba, planlarınız ve fiyatlarınız hakkında bilgi almak istiyorum.",
+      "intervals": {
+        "month": "aylık",
+        "quarter": "3 ayda bir",
+        "year": "yıllık",
+        "one_time": "tek seferlik"
+      },
+      "seats": "{count, plural, one {# çocuk kontenjanı} other {# çocuk kontenjanı}}",
+      "liveClasses": "{count, plural, one {Ayda # canlı ders} other {Ayda # canlı ders}}",
+      "allPrograms": "Tüm programlara erişim",
+      "choose": "Başla",
+      "paymentTitle": "Ödeme nasıl yapılır?",
+      "paymentSubtitle": "Size daha kolay gelen yolu seçin.",
+      "bankTitle": "Banka havalesi (IBAN)",
+      "bankBody": "Giriş yaptıktan sonra banka bilgilerimizi ve size özel bir ödeme referansını görürsünüz. Havaleyi yapın, WhatsApp'tan bildirin ya da dekontu yükleyin; kontrol ettikten sonra erişiminizi açarız.",
+      "cardTitle": "Kartla ödeme",
+      "cardBody": "Planınız için etkinleştirildiğinde, ödeme ortağımız iyzico üzerinden güvenli online kart ödemesi.",
+      "questions": "Planlarla ilgili sorularınız mı var?"
+    },
+    "tutors": {
+      "metaTitle": "Eğitmenlerimiz",
+      "metaDescription": "Akademide Arapça ve Kur'an öğreten eğitmenlerle tanışın.",
+      "title": "Eğitmenlerimizle tanışın",
+      "subtitle": "Çocuklar ve gençlerle çalışmayı seven, nitelikli ve sabırlı öğretmenler.",
+      "emptyTitle": "Eğitmen profilleri yakında",
+      "emptyBody": "Öğretmen kadromuzu çok yakında burada tanıtacağız.",
+      "languages": "Diller",
+      "specialties": "Uzmanlık alanları",
+      "safety": "Çocukların güvenliği için eğitmenler çocuklarla doğrudan iletişim kurmaz. Tüm mesajlar ebeveynler veya akademi ekibi üzerinden gider."
+    },
+    "faq": {
+      "metaTitle": "Sık sorulan sorular",
+      "metaDescription": "Yaş, dersler, güvenlik, ödeme, iptal ve daha fazlası hakkında yanıtlar.",
+      "title": "Sık sorulan sorular",
+      "subtitle": "Ailelerin bize en çok sorduğu konularda açık yanıtlar.",
+      "items": [
+        {
+          "q": "Akademi hangi yaşlar için?",
+          "a": "Yaklaşık 5 ile 17 yaş arasındaki çocuklara ve gençlere ders veriyoruz. Her kursta önerilen yaş aralığı yazar; kısa bir seviye belirleme testi doğru seviyeyi seçmeye yardımcı olur."
+        },
+        {
+          "q": "Dersler nasıl işliyor?",
+          "a": "Çoğu kurs, kısa animasyonlu tahta derslerini testler, okuma pratiği ve isteğe bağlı canlı derslerle birleştirir. Çocuk kendi hızında ilerler, istediği dersi tekrar izleyebilir."
+        },
+        {
+          "q": "Çocuğum için güvenli mi?",
+          "a": "Önce güvenlik. Eğitmenler çocuklara doğrudan mesaj yazmaz, çocuklar yalnızca adlarıyla görünür, kayıtlar ve okumalar özeldir. Canlı video ve yapay zeka geri bildirimi gibi özellikler için önce sizin onayınız gerekir."
+        },
+        {
+          "q": "Banka havalesiyle nasıl öderim?",
+          "a": "Bir plan seçin; IBAN'ımızı ve size özel ödeme referansınızı göreceksiniz. Havaleden sonra WhatsApp'tan bildirin ya da dekontu yükleyin, kontrol edip erişiminizi açarız."
+        },
+        {
+          "q": "İptal edebilir miyim?",
+          "a": "Evet. Yenilemeyi istediğiniz zaman durdurabilir, ödediğiniz dönemin sonuna kadar erişiminizi koruyabilirsiniz. Ayrıntılar için koşullarımıza bakın veya bize yazın."
+        },
+        {
+          "q": "Hangi cihazlara ihtiyacımız var?",
+          "a": "İnternet bağlantısı ve güncel bir tarayıcısı olan bir telefon, tablet veya bilgisayar yeterli. Okuma kaydı için mikrofon, yalnızca canlı video dersleri için kamera gerekir."
+        },
+        {
+          "q": "Canlı dersler kaç kişilik?",
+          "a": "Her çocuğa ilgi gösterilebilmesi için grup dersleri küçük tutulur; birebir oturumlar da vardır. Sınıf mevcudu her oturumda belirtilir."
+        },
+        {
+          "q": "Ezber nasıl takip ediliyor?",
+          "a": "Ezber takip aracı, çocuk ve eğitmenin yeni bölümleri ve tekrarları planlamasını, okumaları kaydetmesini ve geri bildirim bırakmasını sağlar. Ebeveynler ilerlemeyi panelinde görür."
+        },
+        {
+          "q": "Hangi diller destekleniyor?",
+          "a": "Site ve uygulama Türkçe, Arapça ve İngilizce olarak kullanılabilir. Her kursta hangi dilde işlendiği belirtilir."
+        },
+        {
+          "q": "Size nasıl ulaşabilirim?",
+          "a": "En hızlı yol WhatsApp. İletişim sayfasından e-posta da gönderebilirsiniz."
+        }
+      ],
+      "stillTitle": "Aklınızda başka bir soru mu var?",
+      "stillBody": "Yardımcı olmaktan memnuniyet duyarız; kayıt olmak zorunda değilsiniz.",
+      "contactCta": "Bize ulaşın"
+    },
+    "contact": {
+      "metaTitle": "İletişim",
+      "metaDescription": "Bize WhatsApp veya e-posta ile ulaşın.",
+      "title": "Bizimle konuşun",
+      "subtitle": "Programlar, seviyeler, fiyatlar ya da merak ettiğiniz her şey için yazın. Yardımcı olmaktan memnuniyet duyarız.",
+      "whatsappTitle": "WhatsApp",
+      "whatsappBody": "Bize ulaşmanın en hızlı yolu. Düğmeye dokunun, mesajınız gönderilmeye hazır olsun.",
+      "whatsappCta": "WhatsApp'tan yazın",
+      "whatsappMessage": "Merhaba, akademi hakkında bir sorum var.",
+      "emailTitle": "E-posta",
+      "emailBody": "E-postayı mı tercih edersiniz? Yazın, en kısa sürede dönelim.",
+      "emailCta": "E-posta gönder"
+    },
+    "notFound": {
+      "title": "Aradığınız sayfayı bulamadık",
+      "body": "Sayfa taşınmış ya da hiç var olmamış olabilir. Sizi başa götürelim.",
+      "home": "Ana sayfaya dön"
+    }
   },
   legal: {
-    _placeholder: "",
+    "templateBanner": "Bu metin şablondur; yayından önce nitelikli bir avukat tarafından gözden geçirilmelidir. Hukuki tavsiye değildir.",
+    "lastUpdated": "Son güncelleme: yayından önce belirlenecek",
+    "contactNote": "Bu sayfayla ilgili sorularınız için iletişim sayfamızdaki bilgilerden bize ulaşabilirsiniz.",
+    "privacy": {
+      "metaTitle": "Gizlilik politikası",
+      "title": "Gizlilik politikası",
+      "intro": "Çocuklara ders verdiğimiz için verilerini ayrı bir özenle koruyoruz. Bu politika neleri neden topladığımızı ve ailelerin seçeneklerini açıklar.",
+      "sections": [
+        {
+          "title": "Biz kimiz",
+          "body": "Bu web sitesini ve uygulamayı akademi işletir. İletişim bilgileri iletişim sayfamızdadır. Türkiye'deki aileler için veri sorumlusu bilgileri KVKK aydınlatma metninde yer alır."
+        },
+        {
+          "title": "Neleri topluyoruz",
+          "body": "Ebeveyn veya yetişkin hesap bilgileri (ad, e-posta, dil, saat dilimi). Çocuklar için: ad veya takma ad, yalnızca doğum yılı, öğrenme ilerlemesi, test sonuçları, ezber kayıtları ve aile ile ekip arasındaki mesajlar. Ayrıca plan, tutar ve havale referansı gibi ödeme kayıtlarını tutarız."
+        },
+        {
+          "title": "Çocuklar ve ebeveyn onayı",
+          "body": "Çocuk hesabı bir ebeveyn veya vasi tarafından oluşturulur ve yönetilir. Bir çocuk için canlı video, kayıt veya yapay zeka geri bildirimini açmadan önce ebeveynden açık onay isteriz. Ebeveyn onayını hesabından dilediği zaman geri çekebilir."
+        },
+        {
+          "title": "Verileri nasıl kullanıyoruz",
+          "body": "Dersleri ve canlı dersleri sunmak, ilerlemeyi izlemek, eğitmenlerin geri bildirim vermesini sağlamak, ödemeleri almak, hizmet mesajları göndermek ve hizmeti güvenli tutmak için. Kişisel verileri satmayız ve reklam göstermeyiz."
+        },
+        {
+          "title": "Kayıtlar ve okumalar",
+          "body": "Okuma ses kayıtları ve ders kayıtları özel depolamada tutulur; yalnızca aile ve yetkili ekip tarafından, kısa süreli bağlantılarla erişilebilir. Canlı dersler yalnızca onay verildiğinde kaydedilir."
+        },
+        {
+          "title": "Okumaların yapay zeka ile işlenmesi",
+          "body": "Ebeveyn onayıyla bir okuma, otomatik geri bildirim üretmek için Google Gemini'ye gönderilebilir. Bu geri bildirim yalnızca yol göstericidir; geçerli olan eğitmenin değerlendirmesidir. Onay yoksa okumalar yapay zeka işlemesine gönderilmez."
+        },
+        {
+          "title": "Hizmet sağlayıcılar",
+          "body": "Hizmeti işletmek için güvenilir sağlayıcılar kullanırız: barındırma ve depolama için Supabase ve Vercel, kart ödemeleri için iyzico, canlı video için LiveKit, yapay zeka geri bildirimi için Google ve bildirimler için bir e-posta sağlayıcısı. Bunlar verileri yalnızca bu amaçlarla ve bizim adımıza işler. Bazıları verileri ülkeniz dışında işleyebilir."
+        },
+        {
+          "title": "Saklama süresi",
+          "body": "Hesap ve öğrenme verilerini hesap etkin olduğu sürece saklarız. Hesap silindiğinde, ödeme kayıtları gibi yasal olarak saklamamız gereken kayıtlar dışında kişisel verileri kaldırırız. Yedekler düzenli aralıklarla temizlenir."
+        },
+        {
+          "title": "Haklarınız: dışa aktarma ve silme",
+          "body": "Ailenizin verilerinin bir kopyasını isteyebilir veya silinmesini hesap ayarlarından ya da bize yazarak talep edebilirsiniz. Talebinize makul bir sürede ve yürürlükteki mevzuata uygun olarak yanıt veririz."
+        },
+        {
+          "title": "Güvenlik ve değişiklikler",
+          "body": "İletimde şifreleme, hassas dosyalar için özel depolama ve ekip için erişim denetimleri kullanırız. Hiçbir sistem tamamen güvenli değildir; lütfen parolanızı koruyun. Bu politikayı güncelleyebiliriz ve son sürümün tarihini göstereceğiz."
+        }
+      ]
+    },
+    "terms": {
+      "metaTitle": "Kullanım koşulları",
+      "title": "Kullanım koşulları",
+      "intro": "Bu koşullar akademinin ve web sitesinin nasıl kullanılabileceğini açıklar. Lütfen ailenizle birlikte okuyun.",
+      "sections": [
+        {
+          "title": "Koşulların kabulü",
+          "body": "Hesap oluşturarak veya hizmeti kullanarak bu koşulları kabul etmiş olursunuz. 18 yaşından küçükseniz bir ebeveynin veya vasinin sizin adınıza kabul etmesi gerekir."
+        },
+        {
+          "title": "Hesaplar",
+          "body": "Aile hesaplarını ebeveynler oluşturur ve yönetir; çocuklarının hareketlerinden sorumludur. Giriş bilgilerinizi gizli tutun ve bir hesabın kötüye kullanıldığını düşünüyorsanız bize bildirin."
+        },
+        {
+          "title": "Hizmet",
+          "body": "Dersler, canlı dersler, testler ve takip araçları sunuyoruz. İyi öğretmek için çalışırız; ancak sonuçlar öğrenene bağlıdır ve belirli sonuçları garanti edemeyiz. Programlar ve içerik değişebilir."
+        },
+        {
+          "title": "Planlar ve ödeme",
+          "body": "Fiyatlar fiyat sayfasında gösterilir. Ödeme, etkin olduğunda kartla ya da onaylı banka havalesiyle yapılabilir. Erişim, ödeme onaylandığında başlar."
+        },
+        {
+          "title": "İptal ve iade",
+          "body": "Yenilemeyi istediğiniz zaman durdurabilir ve ödenen dönemin sonuna kadar erişiminizi koruyabilirsiniz. İade talepleri, geçerli tüketici mevzuatına uygun olarak olay bazında ele alınır. Bu bölüm nihai iade politikasıyla tamamlanmalıdır."
+        },
+        {
+          "title": "Kabul edilebilir kullanım",
+          "body": "Eğitmenlere ve diğer öğrencilere saygılı olun. Hesabınızı paylaşmayın, kurs içeriğini kopyalamayın veya yeniden satmayın, dersleri izinsiz kaydedip yaymayın ve hizmeti aksatmaya çalışmayın."
+        },
+        {
+          "title": "İçerik ve mülkiyet",
+          "body": "Dersler, materyaller ve marka akademiye veya lisans verenlerine aittir. Bunları öğrenme amacıyla kullanmak için kişisel ve devredilemez bir hakkınız vardır."
+        },
+        {
+          "title": "Sorumluluk",
+          "body": "Kanunların izin verdiği ölçüde akademi, dolaylı zararlardan veya makul kontrolümüz dışındaki kesintilerden sorumlu değildir. Buradaki hiçbir şey, emredici mevzuattan doğan haklarınızı sınırlamaz."
+        },
+        {
+          "title": "Değişiklikler ve uygulanacak hukuk",
+          "body": "Bu koşulları güncelleyebiliriz ve önemli değişiklikleri size bildiririz. Uygulanacak hukuk ve yetkili mahkemeler, yayından önce akademinin avukatı tarafından belirlenecektir."
+        }
+      ]
+    },
+    "kvkk": {
+      "metaTitle": "KVKK aydınlatma metni",
+      "title": "KVKK kişisel verilerin korunması aydınlatma metni",
+      "intro": "Bu metin, Türkiye'de verilerini işlediğimiz kişiler için 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında hazırlanmıştır.",
+      "sections": [
+        {
+          "title": "Veri sorumlusu",
+          "body": "Veri sorumlusu akademinin işletmecisidir. Ticaret unvanı, adres ve sicil bilgileri yayından önce tamamlanacaktır. İletişim bilgileri iletişim sayfamızdadır."
+        },
+        {
+          "title": "İşlenen kişisel veriler",
+          "body": "Kimlik ve iletişim verileri (ad, e-posta), hesap ve öğrenme verileri, ebeveyn ve çocuk ilişkisine dair veriler, ödeme kayıtları, iletişim kayıtları ve onay bulunması halinde okuma ses kayıtları ile ders kayıtları."
+        },
+        {
+          "title": "Amaçlar ve hukuki sebepler",
+          "body": "Verileri eğitim hizmetini sunmak, hesapları ve ödemeleri yönetmek, ailelerle iletişim kurmak, güvenliği sağlamak ve yasal yükümlülükleri yerine getirmek için işleriz. Hukuki sebepler arasında sözleşmenin ifası, hukuki yükümlülük, meşru menfaat ve gerekli olduğunda açık rıza yer alır."
+        },
+        {
+          "title": "Çocukların verileri",
+          "body": "Çocuklara ait veriler ebeveyn veya vasinin bilgisi ve onayıyla işlenir. Veriyi gerekli olanla sınırlarız: ad, doğum yılı ve öğrenme kayıtları."
+        },
+        {
+          "title": "Aktarımlar",
+          "body": "Barındırma, depolama, ödeme, canlı video ve yapay zeka sağlayıcılarımız yurt dışında bulunabilir. Yurt dışına aktarımlar KVKK madde 9 uyarınca, açık rıza veya kanunun öngördüğü güvenceler çerçevesinde yapılır."
+        },
+        {
+          "title": "Verilerin toplanma yöntemi",
+          "body": "Veriler, kayıt olduğunuzda, dersleri kullandığınızda, ödeme yaptığınızda veya bizimle iletişime geçtiğinizde web sitemiz ve uygulamamız üzerinden elektronik ortamda toplanır."
+        },
+        {
+          "title": "Haklarınız",
+          "body": "KVKK madde 11 uyarınca; verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, işleme amacını öğrenme, düzeltme veya silme isteme, aleyhinize bir sonuca itiraz etme ve hukuka aykırı işlemeden doğan zararın giderilmesini talep etme haklarına sahipsiniz."
+        },
+        {
+          "title": "Başvuru yöntemi",
+          "body": "Talebinizi iletişim sayfamızdaki bilgiler üzerinden iletebilirsiniz. En geç otuz gün içinde yanıt veririz. Resmi başvuru usulü akademinin avukatı tarafından tamamlanacaktır."
+        }
+      ]
+    },
+    "cookies": {
+      "metaTitle": "Çerez politikası",
+      "title": "Çerez politikası",
+      "intro": "Bu sayfa, sitenin kullandığı küçük dosyaları ve tarayıcı depolamasını açıklar.",
+      "sections": [
+        {
+          "title": "Neleri kullanıyoruz",
+          "body": "Oturumunuzu açık tutan, dilinizi ve açık veya koyu temanızı hatırlayan ve siteyi kötüye kullanıma karşı koruyan çerezler ve yerel depolama. Bunlar sitenin çalışması için gereklidir."
+        },
+        {
+          "title": "Neleri kullanmıyoruz",
+          "body": "Reklam çerezleri kullanmıyor ve verileri reklamcılara satmıyoruz. İleride analiz aracı eklersek burada belirtir, yasanın gerektirdiği yerde onayınızı isteriz."
+        },
+        {
+          "title": "Üçüncü taraflar",
+          "body": "Ödeme sayfaları ve canlı video, kullanımınız sırasında kendi teknik çerezlerini yerleştirebilir. Bunlar sağlayıcılara aittir ve onların politikalarına tabidir."
+        },
+        {
+          "title": "Çerezleri yönetme",
+          "body": "Çerezleri tarayıcı ayarlarınızdan silebilir veya engelleyebilirsiniz. Gerekli çerezleri engellemek, giriş yapmayı ve bazı özellikleri bozabilir."
+        },
+        {
+          "title": "Değişiklikler",
+          "body": "Site değiştikçe bu politikayı güncelleyebiliriz ve son sürümün tarihini göstereceğiz."
+        }
+      ]
+    }
   },
   email: {
-    _placeholder: "",
+    digestSubject: "Haftalık ilerleme özeti",
+    digestPreheader: "Çocuklarınızın son 7 günde başardıkları.",
+    digestGreeting: "Merhaba {name},",
+    digestIntro: "Çocuklarınızın son 7 günde yaptıkları aşağıda.",
+    lessonsCompleted: "Tamamlanan dersler",
+    xpGained: "Kazanılan XP",
+    streak: "Güncel seri",
+    streakDays: "{count, plural, one {# gün} other {# gün}}",
+    badgesEarned: "Kazanılan rozetler",
+    ayahsMemorized: "Ezberlenen ayetler",
+    recitationsSubmitted: "Gönderilen okumalar",
+    recitationsReviewed: "İncelenen okumalar",
+    homework: "Teslim edilen ödevler",
+    homeworkValue: "{due} ödevden {submitted} tanesi",
+    classesAttended: "Katılınan dersler",
+    classesMissed: "Kaçırılan dersler",
+    openDashboard: "Veli panelini aç",
+    footer: "Bu haftalık özeti {academy} üzerinde veli olduğunuz için alıyorsunuz.",
   },
 };
 

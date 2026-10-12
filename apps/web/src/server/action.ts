@@ -1,4 +1,5 @@
 import "server-only";
+import * as Sentry from "@sentry/nextjs";
 import { z } from "zod";
 import { DbNotConfiguredError, type Role } from "@mufasa/db";
 import { AppError, type ErrorCode } from "./errors";
@@ -27,6 +28,7 @@ export function toActionError(err: unknown): ActionError {
   if (err instanceof DbNotConfiguredError) return { code: "db_not_configured" };
   if (err instanceof z.ZodError) return { code: "validation", fieldErrors: zodFieldErrors(err) };
   console.error("[action] unexpected error", err);
+  Sentry.captureException(err); // no-op when Sentry is not initialised (no DSN)
   return { code: "internal" };
 }
 

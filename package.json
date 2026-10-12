@@ -17,7 +17,10 @@
     "db:studio": "pnpm --filter @mufasa/db studio",
     "worker": "pnpm --filter render-worker start",
     "check:dashes": "node scripts/check-dashes.mjs",
-    "check": "pnpm check:dashes && pnpm typecheck && pnpm lint && pnpm test"
+    "check": "pnpm check:dashes && pnpm typecheck && pnpm lint && pnpm test",
+    "storage:setup": "pnpm --filter web storage:setup",
+    "db:rls": "pnpm --filter @mufasa/db rls",
+    "db:setup": "pnpm db:migrate && pnpm db:rls && pnpm db:seed && pnpm storage:setup"
   },
   "devDependencies": {
     "typescript": "6.0.3"

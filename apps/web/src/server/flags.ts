@@ -17,6 +17,7 @@ export const FLAG_DEFAULTS = {
   gamification: { enabled: true, description: "XP, streaks and badges" },
   certificates: { enabled: true, description: "Auto-issued PDF certificates" },
   parent_messaging: { enabled: true, description: "Parent and tutor message threads" },
+  weekly_digest: { enabled: true, description: "Weekly progress digest email to parents (TODO: per-user opt-out)" },
 } as const;
 
 export type FlagKey = keyof typeof FLAG_DEFAULTS;

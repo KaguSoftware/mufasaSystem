@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Friendly owl mascot">
+  <ellipse cx="120" cy="222" rx="62" ry="9" fill="#000" opacity=".1"/>
+  <path d="M60 70l-14-34 40 18z" fill="#17695d"/>
+  <path d="M180 70l14-34-40 18z" fill="#17695d"/>
+  <ellipse cx="120" cy="128" rx="76" ry="88" fill="#1f8a7a"/>
+  <ellipse cx="120" cy="156" rx="48" ry="56" fill="#f6e9c8"/>
+  <path d="M96 140q6 6 12 0M108 140q6 6 12 0M120 140q6 6 12 0M132 140q6 6 12 0M102 160q6 6 12 0M114 160q6 6 12 0M126 160q6 6 12 0" stroke="#e0c98f" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <circle cx="86" cy="100" r="28" fill="#fff"/>
+  <circle cx="154" cy="100" r="28" fill="#fff"/>
+  <circle cx="90" cy="102" r="14" fill="#23303b"/>
+  <circle cx="150" cy="102" r="14" fill="#23303b"/>
+  <circle cx="94" cy="97" r="5" fill="#fff"/>
+  <circle cx="154" cy="97" r="5" fill="#fff"/>
+  <path d="M120 112l-12 16h24z" fill="#f2b233"/>
+  <path d="M46 130c-14 18-12 46 4 62 6-24 8-44-4-62z" fill="#17695d"/>
+  <path d="M194 130c14 18 12 46-4 62-6-24-8-44 4-62z" fill="#17695d"/>
+  <path d="M100 210l-6 10h18zM140 210l6 10h-18z" fill="#f2b233"/>
+</svg>
