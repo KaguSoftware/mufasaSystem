@@ -1,0 +1,35 @@
+{
+  "name": "render-worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "render:sample": "tsx src/render-sample.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "echo skip",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@google/genai": "2.28.0",
+    "@mufasa/config": "workspace:^",
+    "@mufasa/db": "workspace:^",
+    "@mufasa/video": "workspace:^",
+    "@react-pdf/renderer": "4.9.0",
+    "@remotion/bundler": "4.0.535",
+    "@remotion/renderer": "4.0.535",
+    "@sentry/node": "11.6.0",
+    "@supabase/supabase-js": "2.117.3",
+    "dotenv": "17.2.3",
+    "react": "19.3.0",
+    "remotion": "4.0.535",
+    "zod": "4.6.6"
+  },
+  "devDependencies": {
+    "@types/node": "24",
+    "@types/react": "19.3.0",
+    "tsx": "4.20.6",
+    "vitest": "5.0.3"
+  }
+}

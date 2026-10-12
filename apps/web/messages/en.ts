@@ -186,6 +186,67 @@ const en = {
     certificateIssued: "Your certificate for {course} is ready.",
     newMessage: "New message from {name}",
   },
+  // ───── module namespaces (each module owns its own block) ─────
+  catalog: {
+    _placeholder: "",
+  },
+  learn: {
+    _placeholder: "",
+  },
+  quiz: {
+    _placeholder: "",
+  },
+  placement: {
+    _placeholder: "",
+  },
+  gamification: {
+    _placeholder: "",
+  },
+  billing: {
+    _placeholder: "",
+  },
+  access: {
+    _placeholder: "",
+  },
+  account: {
+    _placeholder: "",
+  },
+  family: {
+    _placeholder: "",
+  },
+  messaging: {
+    _placeholder: "",
+  },
+  admin: {
+    _placeholder: "",
+  },
+  hifz: {
+    _placeholder: "",
+  },
+  recitation: {
+    _placeholder: "",
+  },
+  homework: {
+    _placeholder: "",
+  },
+  live: {
+    _placeholder: "",
+  },
+  studio: {
+    _placeholder: "",
+  },
+  certificates: {
+    _placeholder: "",
+  },
+  public: {
+    _placeholder: "",
+  },
+  legal: {
+    _placeholder: "",
+  },
+  email: {
+    _placeholder: "",
+  },
 } as const;
 
 type DeepString<T> = { [K in keyof T]: T[K] extends string ? string : DeepString<T[K]> };

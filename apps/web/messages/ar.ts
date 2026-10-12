@@ -182,6 +182,67 @@ const ar: Messages = {
     certificateIssued: "شهادتك في {course} جاهزة.",
     newMessage: "رسالة جديدة من {name}",
   },
+  // ───── module namespaces (each module owns its own block) ─────
+  catalog: {
+    _placeholder: "",
+  },
+  learn: {
+    _placeholder: "",
+  },
+  quiz: {
+    _placeholder: "",
+  },
+  placement: {
+    _placeholder: "",
+  },
+  gamification: {
+    _placeholder: "",
+  },
+  billing: {
+    _placeholder: "",
+  },
+  access: {
+    _placeholder: "",
+  },
+  account: {
+    _placeholder: "",
+  },
+  family: {
+    _placeholder: "",
+  },
+  messaging: {
+    _placeholder: "",
+  },
+  admin: {
+    _placeholder: "",
+  },
+  hifz: {
+    _placeholder: "",
+  },
+  recitation: {
+    _placeholder: "",
+  },
+  homework: {
+    _placeholder: "",
+  },
+  live: {
+    _placeholder: "",
+  },
+  studio: {
+    _placeholder: "",
+  },
+  certificates: {
+    _placeholder: "",
+  },
+  public: {
+    _placeholder: "",
+  },
+  legal: {
+    _placeholder: "",
+  },
+  email: {
+    _placeholder: "",
+  },
 };
 
 export default ar;
