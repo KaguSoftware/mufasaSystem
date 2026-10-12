@@ -16,6 +16,15 @@ const dateOnly = (d: Date) => d.toISOString().slice(0, 10);
  *    - grants: no dedupe column exists, so a grant is reminded only when its expiresAt falls
  *      on the UTC calendar day exactly N days from now. A daily cron therefore sends it once.
  */
+async function parentRecipients(childId: string) {
+  const rows = await getDb()
+    .select({ email: schema.user.email, name: schema.user.name, locale: schema.user.locale, role: schema.user.role })
+    .from(schema.parentChildren)
+    .innerJoin(schema.user, eq(schema.user.id, schema.parentChildren.parentId))
+    .where(eq(schema.parentChildren.childId, childId));
+  return rows.filter((r) => !r.email.endsWith("@kids.invalid"));
+}
+
 export async function runBillingCron(now = new Date()) {
   const db = getDb();
   const days = await getSetting("billing.reminderDaysBefore");
@@ -73,9 +82,13 @@ export async function runBillingCron(now = new Date()) {
   for (const { g, u } of grants) {
     const date = dateOnly(g.expiresAt!);
     await notify(u.id, "accessExpiring", { date }, `/${u.role === "student" ? "student" : "parent"}/billing`);
-    await sendExpiryReminderEmail({ to: u.email, name: u.name, locale: u.locale, date, role: u.role }).catch((e) =>
-      console.error("[cron:billing] email failed", e),
-    );
+    // Managed children have placeholder (@kids.invalid) emails: email their parents instead.
+    const targets = u.isManagedChild || u.email.endsWith("@kids.invalid") ? await parentRecipients(u.id) : [{ email: u.email, name: u.name, locale: u.locale, role: u.role }];
+    for (const t of targets) {
+      await sendExpiryReminderEmail({ to: t.email, name: t.name, locale: t.locale, date, role: t.role }).catch((e) =>
+        console.error("[cron:billing] email failed", e),
+      );
+    }
   }
 
   return { expired: expired.length, subscriptionReminders: subReminders, grantReminders: grants.length };

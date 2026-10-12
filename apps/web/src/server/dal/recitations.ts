@@ -84,7 +84,7 @@ export async function createRecitation(actor: SessionUser, input: CreateRecitati
   await awardXp(input.studentId, "recitation_submitted", RECITATION_SUBMITTED_XP, `recitation_submitted:${id}`, { recitationId: id });
   if (input.homeworkId) await satisfyRecitationHomework(input.studentId, input.homeworkId, id);
 
-  const aiQueued = input.requestAi ? await queueAiFeedback(actor, input.studentId, id, { silent: true }) : false;
+  const aiQueued = input.requestAi ? await queueAiFeedback(actor, input.studentId, id, { silent: true, enforceLimit: true }) : false;
   return { id, aiQueued };
 }
 
@@ -93,12 +93,13 @@ export async function createRecitation(actor: SessionUser, input: CreateRecitati
  * feedback, and the per-user AI rate limit has room. With `silent`, a refusal returns false
  * instead of throwing (the recitation itself was already saved).
  */
-async function queueAiFeedback(actor: Actor, studentId: string, recitationId: string, opts: { silent: boolean }): Promise<boolean> {
+async function queueAiFeedback(actor: Actor, studentId: string, recitationId: string, opts: { silent: boolean; enforceLimit: boolean }): Promise<boolean> {
   try {
     if (!(await isEnabled("ai_recitation_feedback", actor))) throw new AppError("feature_disabled", "ai_recitation_feedback");
     if (!isConfigured("gemini")) throw new AppError("integration_not_configured", "Gemini");
     if (!(await childAllows(studentId, "allowAiFeedback"))) throw forbidden("ai_not_allowed");
-    await enforceRateLimit("ai.recitation", actor.id, actor.role);
+    // The retry action already counts "ai.recitation" in its wrapper; only the upload path enforces here.
+    if (opts.enforceLimit) await enforceRateLimit("ai.recitation", actor.id, actor.role);
   } catch (err) {
     if (opts.silent && err instanceof AppError) return false;
     throw err;
@@ -115,7 +116,7 @@ async function queueAiFeedback(actor: Actor, studentId: string, recitationId: st
 export async function requestAiFeedback(actor: SessionUser, recitationId: string) {
   const rec = await loadRecitation(recitationId);
   if (!(await canAccessStudent(actor, rec.studentId))) throw forbidden();
-  await queueAiFeedback(actor, rec.studentId, recitationId, { silent: false });
+  await queueAiFeedback(actor, rec.studentId, recitationId, { silent: false, enforceLimit: false });
   return { id: recitationId };
 }
 

@@ -2,7 +2,7 @@ import "server-only";
 import { z } from "zod";
 import { eq, getDb, schema, sql } from "@mufasa/db";
 import { MIN_SELF_SIGNUP_AGE, SIGNUP_ROLE_WINDOW_MS } from "@/lib/policy";
-import { canSelfSignup, isPlausibleBirthYear } from "@/lib/minor";
+import { canSelfSignup, firstNameOnly, isMinor, isPlausibleBirthYear } from "@/lib/minor";
 import { AppError, forbidden } from "../errors";
 import type { SessionUser } from "../session";
 
@@ -44,7 +44,11 @@ export async function completeSignup(actor: SessionUser, input: CompleteSignupIn
     }
   }
 
-  const displayName = (data.displayName ?? row.name).trim() || row.name;
+  let displayName = (data.displayName ?? row.name).trim() || row.name;
+  // Minors expose a first name only (child safety).
+  if (data.role === "student" && isMinor({ birthYear: data.birthYear, role: "student" })) {
+    displayName = firstNameOnly(displayName) || displayName;
+  }
   await db.transaction(async (tx) => {
     await tx
       .update(schema.user)
@@ -64,18 +68,26 @@ export async function updateOwnProfile(
   input: { displayName: string; birthYear?: number | null },
 ): Promise<void> {
   const db = getDb();
+  // Parents manage a managed child's profile (name and birth year).
+  if (actor.isManagedChild) return;
   if (input.birthYear != null && !canSelfSignup(input.birthYear, MIN_SELF_SIGNUP_AGE)) {
     throw new AppError("validation", "birthYear", { birthYear: ["invalid"] });
   }
+  const existing = await db.query.profiles.findFirst({ where: eq(schema.profiles.userId, actor.id), columns: { birthYear: true } });
+  const effectiveYear = existing?.birthYear ?? input.birthYear ?? null;
+  let displayName = input.displayName;
+  if (actor.role === "student" && isMinor({ birthYear: effectiveYear, role: "student" })) {
+    displayName = firstNameOnly(displayName) || displayName;
+  }
   await db
     .insert(schema.profiles)
-    .values({ userId: actor.id, displayName: input.displayName, birthYear: input.birthYear ?? null })
+    .values({ userId: actor.id, displayName, birthYear: input.birthYear ?? null })
     .onConflictDoUpdate({
       target: schema.profiles.userId,
       set: {
-        displayName: input.displayName,
+        displayName,
         // A birth year can be set once; later changes go through an admin (it drives child-safety rules).
-        ...(input.birthYear != null && !actor.isManagedChild
+        ...(input.birthYear != null
           ? { birthYear: sql`coalesce(${schema.profiles.birthYear}, ${input.birthYear})` }
           : {}),
       },

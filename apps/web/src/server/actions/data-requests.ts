@@ -2,7 +2,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { action } from "../action";
-import { requestDataAction, reviewDataRequest } from "../dal/data-requests";
+import { exportDownloadUrl, requestDataAction, reviewDataRequest } from "../dal/data-requests";
 
 export const requestData = action(
   { input: z.object({ subjectUserId: z.string().min(1), type: z.enum(["export", "delete"]) }), rateLimit: "data.request" },
@@ -11,6 +11,11 @@ export const requestData = action(
     revalidatePath("/[locale]", "layout");
     return res;
   },
+);
+
+export const getExportDownloadUrl = action(
+  { input: z.object({ requestId: z.string().uuid() }), rateLimit: "data.request" },
+  async ({ requestId }, { user }) => exportDownloadUrl(user, requestId),
 );
 
 export const reviewRequest = action(

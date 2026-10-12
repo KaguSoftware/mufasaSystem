@@ -62,6 +62,7 @@ function createAuth() {
       max: 100,
       customRules: {
         "/sign-in/email": { window: 60, max: 5 },
+        // TODO(L8): add a per-account lockout for PIN sign-ins (this rule is per IP/path only).
         "/sign-in/username": { window: 60, max: 5 },
         "/sign-up/email": { window: 60, max: 3 },
         "/email-otp/send-verification-otp": { window: 60, max: 3 },

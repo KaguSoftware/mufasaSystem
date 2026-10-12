@@ -3,6 +3,7 @@ import { z } from "zod";
 import { and, asc, desc, eq, getDb, gte, inArray, lt, lte, ne, schema, sql } from "@mufasa/db";
 import type { I18nText } from "@mufasa/config/locales";
 import { isConfigured } from "@/env";
+import { firstNameOnly, isMinor } from "@/lib/minor";
 import { attendanceStats, type AttendanceStats } from "@/lib/attendance";
 import {
   isHttpsUrl,
@@ -35,11 +36,23 @@ export async function displayNames(userIds: string[]): Promise<Map<string, strin
   const ids = [...new Set(userIds)];
   if (!ids.length) return new Map();
   const rows = await getDb()
-    .select({ id: schema.user.id, name: schema.user.name, displayName: schema.profiles.displayName })
+    .select({
+      id: schema.user.id,
+      name: schema.user.name,
+      displayName: schema.profiles.displayName,
+      role: schema.user.role,
+      isManagedChild: schema.user.isManagedChild,
+      birthYear: schema.profiles.birthYear,
+    })
     .from(schema.user)
     .leftJoin(schema.profiles, eq(schema.profiles.userId, schema.user.id))
     .where(inArray(schema.user.id, ids));
-  return new Map(rows.map((r) => [r.id, r.displayName ?? r.name]));
+  return new Map(
+    rows.map((r) => {
+      const n = r.displayName ?? r.name;
+      return [r.id, r.role === "student" && isMinor(r) ? firstNameOnly(n) || n : n];
+    }),
+  );
 }
 
 /** Parent ids for a set of children. */
@@ -697,8 +710,8 @@ export type SessionDetail = {
 
 /**
  * Access: the session's tutor and admins see all attendees; an attendee student sees only
- * themselves; a parent sees only their own children. meetingUrl is returned only to people
- * who may join (tutor, attendee student) and never to a parent or admin viewer.
+ * themselves; a parent sees only their own children. meetingUrl is returned only to the tutor and admin;
+ * students get the link only through joinSession (consent + time window).
  */
 export async function sessionDetail(actor: SessionUser, sessionId: string): Promise<SessionDetail> {
   const db = getDb();
@@ -728,7 +741,7 @@ export async function sessionDetail(actor: SessionUser, sessionId: string): Prom
   } else throw forbidden();
 
   const names = await displayNames([s.tutorId, ...visible.map((a) => a.studentId)]);
-  const canSeeLink = viewer === "tutor" || viewer === "student";
+  const canSeeLink = viewer === "tutor" || viewer === "admin";
   return {
     id: s.id,
     title: s.title,

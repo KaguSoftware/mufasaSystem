@@ -83,6 +83,7 @@ export async function AccountPage() {
                   type: r.type,
                   status: r.status,
                   createdAt: r.createdAt.toISOString(),
+                  downloadable: r.type === "export" && r.status === "completed" && r.hasResult,
                 }))}
               />
             </CardBody>

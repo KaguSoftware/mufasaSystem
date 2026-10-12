@@ -1,5 +1,6 @@
 import "server-only";
 import { and, count, eq, getDb, inArray, schema } from "@mufasa/db";
+import { firstNameOnly, isMinor } from "@/lib/minor";
 import { mergeRanges, type AyahCounts } from "@/lib/hifz-ranges";
 import { forbidden } from "../errors";
 import { childrenOf, type SessionUser } from "../session";
@@ -46,11 +47,23 @@ export async function tutorStudentIds(tutorId: string): Promise<string[]> {
 export async function displayNames(ids: string[]): Promise<Map<string, string>> {
   if (!ids.length) return new Map();
   const rows = await getDb()
-    .select({ id: schema.user.id, name: schema.user.name, displayName: schema.profiles.displayName })
+    .select({
+      id: schema.user.id,
+      name: schema.user.name,
+      displayName: schema.profiles.displayName,
+      role: schema.user.role,
+      isManagedChild: schema.user.isManagedChild,
+      birthYear: schema.profiles.birthYear,
+    })
     .from(schema.user)
     .leftJoin(schema.profiles, eq(schema.profiles.userId, schema.user.id))
     .where(inArray(schema.user.id, ids));
-  return new Map(rows.map((r) => [r.id, r.displayName || r.name]));
+  return new Map(
+    rows.map((r) => {
+      const n = r.displayName || r.name;
+      return [r.id, r.role === "student" && isMinor(r) ? firstNameOnly(n) || n : n];
+    }),
+  );
 }
 
 export async function parentIdsOf(studentId: string): Promise<string[]> {

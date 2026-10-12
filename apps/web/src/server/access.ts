@@ -97,7 +97,18 @@ export async function assertLessonAccess(user: Pick<SessionUser, "id" | "role">,
     columns: { id: true, courseId: true, isPreview: true, published: true },
   });
   if (!lesson) throw notFound();
-  if (!lesson.published && user.role !== "admin" && user.role !== "tutor") throw notFound();
+  const staff = user.role === "admin" || user.role === "tutor";
+  if (!lesson.published && !staff) throw notFound();
+  if (!staff) {
+    // Unpublished course or program: hidden from non-staff.
+    const [row] = await getDb()
+      .select({ coursePublished: schema.courses.published, programPublished: schema.programs.published })
+      .from(schema.courses)
+      .innerJoin(schema.programs, eq(schema.programs.id, schema.courses.programId))
+      .where(eq(schema.courses.id, lesson.courseId))
+      .limit(1);
+    if (!row || !row.coursePublished || !row.programPublished) throw notFound();
+  }
   if (lesson.isPreview) return lesson;
   await assertCourseAccess(user, lesson.courseId);
   return lesson;

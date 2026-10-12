@@ -781,6 +781,7 @@ const en = {
     myData: "My data",
     childData: "Data for {name}",
     requestExport: "Request export",
+    downloadExport: "Download",
     requestDelete: "Request deletion",
     deleteConfirmTitle: "Request permanent deletion?",
     deleteConfirmBody: "After approval, the account and all its data are erased and cannot be recovered.",

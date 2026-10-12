@@ -1,10 +1,8 @@
 "use server";
 
 import { z } from "zod";
-import { action, toActionError, type ActionResult } from "../action";
-import { requireFlag } from "../flags";
-import { enforceRateLimit } from "../rate-limit";
-import { requireUser } from "../session";
+import { action } from "../action";
+import { AppError, forbidden } from "../errors";
 import * as billing from "../dal/billing";
 import { cardCheckoutInputSchema, startCardCheckout } from "../dal/billing-iyzico";
 
@@ -23,18 +21,16 @@ export const submitPaymentRequest = action(
 );
 
 /** Receives FormData with a `file` field. Returns the stored object path to pass to submitPaymentRequest. */
-export async function uploadReceiptAction(formData: FormData): Promise<ActionResult<{ path: string }>> {
-  try {
-    const user = await requireUser();
-    await requireFlag("manual_payments", user);
-    await enforceRateLimit("upload.receipt", user.id, user.role);
+export const uploadReceiptAction = action(
+  { input: z.instanceof(FormData), roles: ["parent", "student"], flag: "manual_payments", rateLimit: "upload.receipt" },
+  async (formData, { user }) => {
+    // Managed children never pay; their parents do.
+    if (user.isManagedChild) throw forbidden();
     const file = formData.get("file");
-    if (!(file instanceof File)) return { ok: false, error: { code: "validation", fieldErrors: { file: ["required"] } } };
-    return { ok: true, data: await billing.uploadReceipt(user, file) };
-  } catch (err) {
-    return { ok: false, error: toActionError(err) };
-  }
-}
+    if (!(file instanceof File)) throw new AppError("validation", "file", { file: ["required"] });
+    return billing.uploadReceipt(user, file);
+  },
+);
 
 export const startCardCheckoutAction = action(
   { input: cardCheckoutInputSchema, roles: ["parent", "student"], flag: "iyzico_checkout" },

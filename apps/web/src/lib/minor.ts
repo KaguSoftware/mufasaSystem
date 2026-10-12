@@ -30,3 +30,9 @@ export function isPlausibleBirthYear(year: number, now = new Date()): boolean {
 export function canSelfSignup(birthYear: number, minAge = 13, now = new Date()): boolean {
   return isPlausibleBirthYear(birthYear, now) && now.getFullYear() - birthYear >= minAge;
 }
+
+/** First whitespace-separated token of a name (minors never expose a surname). */
+export function firstNameOnly(name: string | null | undefined): string {
+  const t = (name ?? "").trim().split(/\s+/)[0];
+  return t ?? "";
+}

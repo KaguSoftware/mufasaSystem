@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canSelfSignup, isMinor } from "./minor";
+import { canSelfSignup, firstNameOnly, isMinor } from "./minor";
 
 const now = new Date("2026-10-12T00:00:00Z");
 
@@ -28,5 +28,14 @@ describe("canSelfSignup", () => {
   it("rejects implausible years", () => {
     expect(canSelfSignup(1800, 13, now)).toBe(false);
     expect(canSelfSignup(2030, 13, now)).toBe(false);
+  });
+});
+
+describe("firstNameOnly", () => {
+  it("keeps only the first token", () => {
+    expect(firstNameOnly("  Omar  Al Farouq ")).toBe("Omar");
+    expect(firstNameOnly("Aya")).toBe("Aya");
+    expect(firstNameOnly("")).toBe("");
+    expect(firstNameOnly(null)).toBe("");
   });
 });

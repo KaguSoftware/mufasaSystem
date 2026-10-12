@@ -202,6 +202,16 @@ export async function updateEntry(actor: Actor, entryId: string, patch: EntryPat
   const who = await assertCanManage(actor, entry.studentId);
   if (who !== "staff" && (patch.status !== undefined || patch.grade !== undefined)) throw forbidden();
 
+  if (
+    who !== "staff" &&
+    entry.status === "memorized" &&
+    ((patch.ayahFrom !== undefined && patch.ayahFrom !== entry.ayahFrom) ||
+      (patch.ayahTo !== undefined && patch.ayahTo !== entry.ayahTo) ||
+      ("surah" in patch && (patch as { surah?: number }).surah !== undefined))
+  ) {
+    throw forbidden();
+  }
+
   const ayahFrom = patch.ayahFrom ?? entry.ayahFrom;
   const ayahTo = patch.ayahTo ?? entry.ayahTo;
   validRangeOrThrow({ surah: entry.surah, from: ayahFrom, to: ayahTo }, await surahCounts());

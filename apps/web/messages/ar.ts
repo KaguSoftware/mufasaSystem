@@ -777,6 +777,7 @@ const ar: Messages = {
     myData: "بياناتي",
     childData: "بيانات {name}",
     requestExport: "طلب نسخة",
+    downloadExport: "تنزيل الملف",
     requestDelete: "طلب الحذف",
     deleteConfirmTitle: "طلب الحذف النهائي؟",
     deleteConfirmBody: "بعد الموافقة تُمحى البيانات والحساب بالكامل ولا يمكن استرجاعها.",

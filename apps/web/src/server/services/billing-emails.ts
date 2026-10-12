@@ -1,5 +1,6 @@
 import "server-only";
 import { env } from "@/env";
+import { escapeHtml } from "@/lib/digest";
 import { sendEmail } from "../email";
 
 const COPY = {
@@ -27,6 +28,7 @@ export async function sendExpiryReminderEmail(opts: { to: string; name: string; 
   const c = COPY[(opts.locale in COPY ? opts.locale : "en") as keyof typeof COPY];
   const href = `${env().APP_URL}/${opts.locale in COPY ? opts.locale : "en"}/${opts.role === "student" ? "student" : "parent"}/billing`;
   const text = `${c.body(opts.name, opts.date)}\n\n${c.cta}: ${href}`;
-  const html = `<p>${c.body(opts.name, opts.date).replace(/\n\n/g, "</p><p>")}</p><p><a href="${href}">${c.cta}</a></p>`;
+  const htmlBody = c.body(escapeHtml(opts.name), escapeHtml(opts.date)).replace(/\n\n/g, "</p><p>");
+  const html = `<p>${htmlBody}</p><p><a href="${escapeHtml(href)}">${c.cta}</a></p>`;
   return sendEmail({ to: opts.to, subject: c.subject, html, text });
 }

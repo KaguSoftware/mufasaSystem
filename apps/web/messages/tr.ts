@@ -778,6 +778,7 @@ const tr: Messages = {
     myData: "Verilerim",
     childData: "{name} için veriler",
     requestExport: "Dışa aktarma iste",
+    downloadExport: "İndir",
     requestDelete: "Silme iste",
     deleteConfirmTitle: "Kalıcı silme istensin mi?",
     deleteConfirmBody: "Onaydan sonra hesap ve tüm verileri silinir ve geri alınamaz.",

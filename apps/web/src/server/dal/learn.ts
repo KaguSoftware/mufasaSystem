@@ -2,7 +2,8 @@ import "server-only";
 import { and, asc, count, desc, eq, getDb, gt, inArray, isNotNull, isNull, ne, notInArray, schema, sql } from "@mufasa/db";
 import { assertCanAccessStudent, isParentOf, type SessionUser } from "../session";
 import { assertLessonAccess, hasCourseAccess } from "../access";
-import { forbidden, notFound } from "../errors";
+import { AppError, forbidden, notFound } from "../errors";
+import { progressPercent } from "@/lib/progress";
 import { storage } from "../storage";
 import { awardXp } from "../services/gamification";
 import { onCourseCompleted } from "../services/course-completion";
@@ -397,14 +398,26 @@ export async function recordProgress(actor: Actor, lessonId: string, positionSec
     columns: { id: true, courseId: true, xpReward: true, videoDurationSec: true },
   });
   if (!full) throw notFound();
-  const duration = durationSec > 0 ? durationSec : (full.videoDurationSec ?? 0);
-  const percent = duration > 0 ? (positionSec / duration) * 100 : 0;
+  const percent = progressPercent(positionSec, full.videoDurationSec, durationSec);
+  if (percent === null) throw new AppError("validation", "invalid_progress");
   return applyProgress(actor.id, full, positionSec, percent, false);
 }
 
 /** For reading / quiz lessons that have no video: the learner marks them done. */
 export async function markLessonComplete(actor: Actor, lessonId: string): Promise<ProgressResult> {
   await assertLessonAccess(actor, lessonId);
+  const db = getDb();
+  const lesson = await db.query.lessons.findFirst({
+    where: eq(schema.lessons.id, lessonId),
+    columns: { type: true, videoPath: true, videoDurationSec: true },
+  });
+  if (!lesson) throw notFound();
+  const quiz = await db.query.quizzes.findFirst({
+    where: and(eq(schema.quizzes.lessonId, lessonId), eq(schema.quizzes.kind, "lesson")),
+    columns: { id: true },
+  });
+  const manual = lesson.type === "reading" || lesson.type === "live" || lesson.type === "recitation";
+  if (!manual || lesson.videoPath || lesson.videoDurationSec || quiz) throw new AppError("validation", "not_manually_completable");
   return completeLessonFor(actor.id, lessonId);
 }
 

@@ -1,5 +1,5 @@
 import "server-only";
-import { eq, getDb, schema } from "@mufasa/db";
+import { and, eq, getDb, inArray, schema } from "@mufasa/db";
 import { t18n } from "@mufasa/config/locales";
 import { isEnabled } from "../flags";
 import { notify } from "../notify";
@@ -28,10 +28,27 @@ export async function onCourseCompleted(userId: string, courseId: string): Promi
 
   // Certificate for (userId, courseId). Idempotent, and never allowed to break course completion.
   try {
-    if (await isEnabled("certificates", { id: userId, role: "student" })) {
+    if ((await isEnabled("certificates", { id: userId, role: "student" })) && (await passedAllLessonQuizzes(userId, courseId))) {
       await issueCertificate({ userId, courseId, title: course.title });
     }
   } catch (err) {
     console.error("[course-completion] certificate issue failed", err);
   }
+}
+
+/** True when every published lesson that has a lesson-kind quiz has a passing attempt by the user. */
+async function passedAllLessonQuizzes(userId: string, courseId: string): Promise<boolean> {
+  const db = getDb();
+  const quizzes = await db
+    .select({ id: schema.quizzes.id })
+    .from(schema.quizzes)
+    .innerJoin(schema.lessons, eq(schema.lessons.id, schema.quizzes.lessonId))
+    .where(and(eq(schema.lessons.courseId, courseId), eq(schema.lessons.published, true), eq(schema.quizzes.kind, "lesson")));
+  if (!quizzes.length) return true;
+  const ids = quizzes.map((q) => q.id);
+  const passed = await db
+    .selectDistinct({ quizId: schema.quizAttempts.quizId })
+    .from(schema.quizAttempts)
+    .where(and(eq(schema.quizAttempts.userId, userId), eq(schema.quizAttempts.passed, true), inArray(schema.quizAttempts.quizId, ids)));
+  return passed.length >= new Set(ids).size;
 }

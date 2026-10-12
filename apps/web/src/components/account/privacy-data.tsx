@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
-import { requestData } from "@/server/actions/data-requests";
+import { getExportDownloadUrl, requestData } from "@/server/actions/data-requests";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -17,6 +17,7 @@ export type PrivacyRequest = {
   type: "export" | "delete";
   status: "pending" | "approved" | "rejected" | "completed";
   createdAt: string;
+  downloadable?: boolean;
 };
 
 const TONE = { pending: "warning", approved: "primary", rejected: "danger", completed: "success" } as const;
@@ -47,6 +48,14 @@ export function PrivacyData({
     }
     toast.success(type === "export" ? t("exportRequested") : t("deleteRequested"));
     router.refresh();
+  }
+
+  async function download(requestId: string) {
+    setBusy(`dl:${requestId}`);
+    const res = await getExportDownloadUrl({ requestId });
+    setBusy(null);
+    if (!res.ok) return toast.error(errText(res.error));
+    window.location.assign(res.data.url);
   }
 
   return (
@@ -98,6 +107,11 @@ export function PrivacyData({
                 <span className="flex items-center gap-3">
                   <span className="text-xs text-muted">{new Date(r.createdAt).toLocaleDateString(locale)}</span>
                   <Badge tone={TONE[r.status]}>{t(`status_${r.status}`)}</Badge>
+                  {r.downloadable && (
+                    <Button variant="outline" size="sm" loading={busy === `dl:${r.id}`} onClick={() => download(r.id)}>
+                      {t("downloadExport")}
+                    </Button>
+                  )}
                 </span>
               </li>
             ))}

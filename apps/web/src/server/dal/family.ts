@@ -136,8 +136,16 @@ export async function childAllows(
   childId: string,
   feature: "allowLiveVideo" | "allowRecitationRecording" | "allowAiFeedback" | "allowSessionRecording",
 ): Promise<boolean> {
-  const u = await getDb().query.user.findFirst({ where: eq(schema.user.id, childId), columns: { isManagedChild: true } });
-  if (!u?.isManagedChild) return true;
+  const u = await getDb().query.user.findFirst({
+    where: eq(schema.user.id, childId),
+    columns: { isManagedChild: true, role: true },
+    with: { profile: { columns: { birthYear: true } } },
+  });
+  if (!u?.isManagedChild) {
+    // Unknown age for a self-registered student is treated as a minor without consent.
+    if (u && u.role === "student" && !u.profile?.birthYear) return false;
+    return true;
+  }
   const c = await getActiveConsent(childId);
   return Boolean(c?.[feature]);
 }

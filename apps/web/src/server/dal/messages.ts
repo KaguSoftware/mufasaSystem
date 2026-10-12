@@ -7,6 +7,8 @@ import { AppError, forbidden, notFound } from "../errors";
 import { requireFlag } from "../flags";
 import { notify } from "../notify";
 import { childrenOf, isParentOf, isTutorOf, type SessionUser } from "../session";
+// Shared helper: minors are shown by first name only (child safety).
+import { displayNames } from "./tutoring";
 
 export const startThreadSchema = z.object({
   recipientId: z.string().min(1),
@@ -157,16 +159,6 @@ export async function listRecipients(actor: SessionUser): Promise<Recipient[]> {
 }
 
 /** Profile display name when present (first names only for children), else the account name. */
-async function displayNames(ids: string[]): Promise<Map<string, string>> {
-  if (!ids.length) return new Map();
-  const rows = await getDb()
-    .select({ id: schema.user.id, name: schema.user.name, displayName: schema.profiles.displayName })
-    .from(schema.user)
-    .leftJoin(schema.profiles, eq(schema.profiles.userId, schema.user.id))
-    .where(inArray(schema.user.id, ids));
-  return new Map(rows.map((r) => [r.id, r.displayName ?? r.name]));
-}
-
 // ───────────── threads ─────────────
 
 export type ThreadListItem = {

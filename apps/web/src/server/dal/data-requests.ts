@@ -4,6 +4,8 @@ import { audit } from "../audit";
 import { AppError, forbidden, notFound } from "../errors";
 import { enqueueJob } from "../jobs";
 import { isParentOf, type SessionUser } from "../session";
+import { isConfigured } from "@/env";
+import { storage, type BucketKey } from "../storage";
 
 export type DataRequestType = "export" | "delete";
 
@@ -198,5 +200,50 @@ export async function reviewDataRequest(
     entityId: subject.id,
     before: { role: subject.role, email: subject.email, name: subject.name, isManagedChild: subject.isManagedChild, requestId: req.id },
   });
+  await removeUserFiles(subject.id);
   await db.delete(schema.user).where(eq(schema.user.id, subject.id));
+}
+
+/** Best-effort removal of a user's private storage objects before the row (and its path columns) is gone. */
+async function removeUserFiles(userId: string): Promise<void> {
+  if (!isConfigured("storage")) return;
+  const db = getDb();
+  try {
+    const [recs, receipts, certs, hw, exportsRows] = await Promise.all([
+      db.select({ p: schema.recitationSubmissions.audioPath }).from(schema.recitationSubmissions).where(eq(schema.recitationSubmissions.studentId, userId)),
+      db.select({ p: schema.manualPaymentRequests.receiptPath }).from(schema.manualPaymentRequests).where(eq(schema.manualPaymentRequests.payerId, userId)),
+      db.select({ p: schema.certificates.pdfPath }).from(schema.certificates).where(eq(schema.certificates.userId, userId)),
+      db.select({ p: schema.homeworkSubmissions.attachmentPath }).from(schema.homeworkSubmissions).where(eq(schema.homeworkSubmissions.studentId, userId)),
+      db.select({ p: schema.dataRequests.resultPath }).from(schema.dataRequests).where(eq(schema.dataRequests.subjectUserId, userId)),
+    ]);
+    const clean = (rows: { p: string | null }[]) => rows.map((r) => r.p).filter((p): p is string => Boolean(p));
+    const groups: [BucketKey, string[]][] = [
+      ["recitations", clean(recs)],
+      ["receipts", clean(receipts)],
+      ["certificates", clean(certs)],
+      ["lessonAssets", clean(hw)],
+      ["exports", clean(exportsRows)],
+    ];
+    for (const [bucket, paths] of groups) {
+      if (!paths.length) continue;
+      try {
+        await storage().remove(bucket, paths);
+      } catch (err) {
+        console.error("[data-requests] storage cleanup failed", bucket, err);
+      }
+    }
+  } catch (err) {
+    console.error("[data-requests] storage cleanup failed", err);
+  }
+}
+
+/** Signed URL (10 min) for a completed export. Requester, subject or admin only. */
+export async function exportDownloadUrl(actor: SessionUser, requestId: string): Promise<{ url: string }> {
+  const req = await getDb().query.dataRequests.findFirst({ where: eq(schema.dataRequests.id, requestId) });
+  if (!req) throw notFound();
+  const allowed = actor.role === "admin" || actor.id === req.requestedBy || actor.id === req.subjectUserId;
+  if (!allowed || actor.isManagedChild) throw forbidden();
+  if (req.type !== "export" || req.status !== "completed" || !req.resultPath) throw new AppError("conflict", "export_not_ready");
+  const url = await storage().signedUrl("exports", req.resultPath, 600);
+  return { url };
 }
