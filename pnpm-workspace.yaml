@@ -1,0 +1,8 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - "@sentry/cli"
+  - "@remotion/compositor-win32-x64-msvc"

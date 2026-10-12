@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Brand is TBD: change colors/radius here and every component
+ * follows (components only use the semantic names below, never raw colors).
+ * Dark mode: <html data-theme="dark">. A tiny inline script in the root layout
+ * resolves the saved preference (light/dark/system) before paint.
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  --bg: oklch(0.985 0.004 95);
+  --surface: oklch(1 0 0);
+  --surface-2: oklch(0.965 0.006 95);
+  --surface-3: oklch(0.93 0.008 95);
+  --border: oklch(0.9 0.008 95);
+  --border-strong: oklch(0.82 0.01 95);
+  --text: oklch(0.22 0.02 250);
+  --muted: oklch(0.52 0.02 250);
+  --primary: oklch(0.52 0.11 175);
+  --primary-hover: oklch(0.47 0.11 175);
+  --primary-fg: oklch(0.99 0 0);
+  --primary-soft: oklch(0.95 0.035 175);
+  --accent: oklch(0.78 0.15 75);
+  --accent-soft: oklch(0.96 0.05 85);
+  --danger: oklch(0.58 0.2 25);
+  --danger-soft: oklch(0.96 0.03 25);
+  --success: oklch(0.6 0.14 150);
+  --success-soft: oklch(0.96 0.04 150);
+  --warning: oklch(0.72 0.15 65);
+  --warning-soft: oklch(0.97 0.04 80);
+  --ring: oklch(0.52 0.11 175 / 0.35);
+  --shadow: 0 1px 2px oklch(0 0 0 / 0.04), 0 4px 16px oklch(0 0 0 / 0.06);
+  --shadow-lg: 0 8px 32px oklch(0 0 0 / 0.12);
+  --radius: 0.75rem;
+  --scrollbar: oklch(0.8 0.01 95);
+  --scrollbar-hover: oklch(0.7 0.01 95);
+}
+
+
+:root[data-theme="dark"] {
+  --bg: oklch(0.17 0.012 250);
+  --surface: oklch(0.21 0.014 250);
+  --surface-2: oklch(0.245 0.015 250);
+  --surface-3: oklch(0.29 0.016 250);
+  --border: oklch(0.3 0.015 250);
+  --border-strong: oklch(0.38 0.016 250);
+  --text: oklch(0.95 0.005 95);
+  --muted: oklch(0.7 0.012 250);
+  --primary: oklch(0.7 0.12 175);
+  --primary-hover: oklch(0.75 0.12 175);
+  --primary-fg: oklch(0.17 0.02 175);
+  --primary-soft: oklch(0.3 0.05 175);
+  --accent-soft: oklch(0.32 0.06 75);
+  --danger-soft: oklch(0.3 0.07 25);
+  --success-soft: oklch(0.3 0.06 150);
+  --warning-soft: oklch(0.32 0.06 75);
+  --ring: oklch(0.7 0.12 175 / 0.4);
+  --shadow: 0 1px 2px oklch(0 0 0 / 0.3), 0 4px 16px oklch(0 0 0 / 0.3);
+  --shadow-lg: 0 8px 32px oklch(0 0 0 / 0.5);
+  --scrollbar: oklch(0.36 0.015 250);
+  --scrollbar-hover: oklch(0.46 0.015 250);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-fg: var(--primary-fg);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 0.25rem);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 0.25rem);
+  --radius-xl: calc(var(--radius) + 0.5rem);
+  --shadow-card: var(--shadow);
+  --shadow-pop: var(--shadow-lg);
+  --font-sans: var(--font-rubik), ui-sans-serif, system-ui, sans-serif;
+  --font-quran: var(--font-naskh), "Amiri", serif;
+  --animate-pop-in: pop-in 140ms cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  --animate-fade-in: fade-in 160ms ease-out;
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@layer base {
+  html { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--primary-soft); color: var(--text); }
+
+  :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
+
+  /* Custom scrollbars everywhere (Firefox + WebKit). */
+  * { scrollbar-width: thin; scrollbar-color: var(--scrollbar) transparent; }
+  *::-webkit-scrollbar { width: 10px; height: 10px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb {
+    background: var(--scrollbar);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+  }
+  *::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); background-clip: padding-box; }
+  *::-webkit-scrollbar-corner { background: transparent; }
+
+  /* Native controls we fully replace still need sane defaults. */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+  .quran { font-family: var(--font-quran); line-height: 2.1; direction: rtl; }
+}

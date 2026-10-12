@@ -1,0 +1,25 @@
+{
+  "name": "mufasa",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "db:generate": "pnpm --filter @mufasa/db generate",
+    "db:migrate": "pnpm --filter @mufasa/db migrate",
+    "db:seed": "pnpm --filter @mufasa/db seed",
+    "db:studio": "pnpm --filter @mufasa/db studio",
+    "worker": "pnpm --filter render-worker start",
+    "check:dashes": "node scripts/check-dashes.mjs",
+    "check": "pnpm check:dashes && pnpm typecheck && pnpm lint && pnpm test"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  }
+}
